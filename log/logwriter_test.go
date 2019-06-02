@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/limetext/log4go"
+	"github.com/jeanphorn/log4go"
 )
 
 func TestNewLogWriter(t *testing.T) {

@@ -12,13 +12,13 @@ import (
 	"runtime/debug"
 	"sync"
 
-	"github.com/limetext/backend/clipboard"
-	"github.com/limetext/backend/keys"
-	"github.com/limetext/backend/log"
-	"github.com/limetext/backend/packages"
-	"github.com/limetext/backend/watch"
-	"github.com/limetext/text"
-	"github.com/limetext/util"
+	"github.com/jxo/backend/clipboard"
+	"github.com/jxo/backend/keys"
+	"github.com/jxo/backend/log"
+	"github.com/jxo/backend/packages"
+	"github.com/jxo/backend/util"
+	"github.com/jxo/backend/watch"
+	"github.com/jxo/text"
 )
 
 func init() {

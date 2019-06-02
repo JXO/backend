@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/limetext/text"
+	"github.com/jxo/text"
 )
 
 type dummyColourScheme struct {

@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"sync"
 
-	"github.com/limetext/loaders"
+	"github.com/jxo/backend/loaders"
 )
 
 // Helper type for loading json files(e.g keymaps settings)

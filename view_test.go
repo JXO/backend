@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/limetext/text"
-	"github.com/limetext/util"
+	"github.com/jxo/backend/util"
+	"github.com/jxo/text"
 )
 
 var testfile = "testdata/file"

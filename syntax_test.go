@@ -7,9 +7,9 @@ package backend
 import (
 	"testing"
 
-	"github.com/limetext/backend/parser"
-	"github.com/limetext/sublime/textmate/language"
-	"github.com/limetext/text"
+	"github.com/jxo/backend/parser"
+	"github.com/jxo/backend/textmate/language"
+	"github.com/jxo/text"
 )
 
 type dummySyntax struct {

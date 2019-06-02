@@ -5,7 +5,7 @@
 package log
 
 import (
-	"github.com/limetext/log4go"
+	"github.com/jeanphorn/log4go"
 )
 
 type Logger interface {

@@ -5,8 +5,8 @@
 package render
 
 import (
-	"github.com/limetext/text"
-	"github.com/limetext/util"
+	"github.com/jxo/backend/util"
+	"github.com/jxo/text"
 )
 
 const (
@@ -37,11 +37,11 @@ type (
 
 	// The ViewRegions object contains information
 	// related to the rendering of a specific RegionSet
-	// and can be set both by a https://godoc.org/github.com/limetext/backend/parser#SyntaxHighlighter
-	// and from plugins via https://godoc.org/github.com/limetext/backend#View.AddRegions.
+	// and can be set both by a https://godoc.org/github.com/jxo/backend/parser#SyntaxHighlighter
+	// and from plugins via https://godoc.org/github.com/jxo/backend#View.AddRegions.
 	//
-	// Turning this information into a concrete https://godoc.org/github.com/limetext/backend/render#Flavour
-	// is the job of the https://godoc.org/github.com/limetext/backend/render#ColourScheme interface.
+	// Turning this information into a concrete https://godoc.org/github.com/jxo/backend/render#Flavour
+	// is the job of the https://godoc.org/github.com/jxo/backend/render#ColourScheme interface.
 	ViewRegions struct {
 		// The Regions this ViewRegions object is relevant to.
 		Regions text.RegionSet

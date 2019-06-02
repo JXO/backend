@@ -12,8 +12,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/limetext/backend/log"
-	"github.com/limetext/text"
+	"github.com/jxo/backend/log"
+	"github.com/jxo/text"
 )
 
 type (

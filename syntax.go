@@ -7,10 +7,10 @@ package backend
 import (
 	"fmt"
 
-	"github.com/limetext/backend/log"
-	"github.com/limetext/backend/parser"
-	"github.com/limetext/backend/render"
-	"github.com/limetext/text"
+	"github.com/jxo/backend/log"
+	"github.com/jxo/backend/parser"
+	"github.com/jxo/backend/render"
+	"github.com/jxo/text"
 )
 
 // Any syntax definition for view should implement this interface

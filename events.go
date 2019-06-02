@@ -7,8 +7,8 @@ package backend
 import (
 	"strings"
 
-	"github.com/limetext/backend/log"
-	"github.com/limetext/util"
+	"github.com/jxo/backend/log"
+	"github.com/jxo/backend/util"
 )
 
 type (
@@ -93,7 +93,7 @@ func (ve *ViewEvent) Add(cb ViewEventCallback) {
 // Trigger this ViewEvent by calling all the registered callbacks in order of registration.
 // TODO: should calling be exported?
 func (ve *ViewEvent) Call(v *View) {
-	log.Finest("%s(%v)", evNames[ve], v.Id())
+	log.Finest("%s(%v)", evNames[ve], v.ID())
 	for _, ev := range *ve {
 		ev(v)
 	}
@@ -129,7 +129,7 @@ func (we *WindowEvent) Add(cb WindowEventCallback) {
 // Trigger this WindowEvent by calling all the registered callbacks in order of registration.
 // TODO: should calling be exported?
 func (we *WindowEvent) Call(w *Window) {
-	log.Finest("%s(%v)", wevNames[we], w.Id())
+	log.Finest("%s(%v)", wevNames[we], w.ID())
 	for _, ev := range *we {
 		ev(w)
 	}

@@ -7,7 +7,7 @@ package backend
 import (
 	"fmt"
 
-	"github.com/limetext/text"
+	"github.com/jxo/text"
 )
 
 type (

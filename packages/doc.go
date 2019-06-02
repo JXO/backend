@@ -9,9 +9,9 @@
 // make it possible to use these and other variants. @quarnster
 // Ideally packages implemented in such a way that we can just do:
 // import (
-// _ "github.com/limetext/lime/backend/textmate"
-// _ "github.com/limetext/lime/backend/sublime"
-// _ "github.com/limetext/lime/backend/emacs"
+// _ "github.com/jxo/backend/textmate"
+// _ "github.com/jxo/backend/sublime"
+// _ "github.com/jxo/backend/emacs"
 // )
 //
 // Package type

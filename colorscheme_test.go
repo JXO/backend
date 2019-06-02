@@ -7,8 +7,8 @@ package backend
 import (
 	"testing"
 
-	"github.com/limetext/sublime/textmate/theme"
-	"github.com/limetext/text"
+	"github.com/jxo/backend/textmate/theme"
+	"github.com/jxo/text"
 )
 
 type dummyColorScheme struct {

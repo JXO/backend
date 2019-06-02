@@ -9,7 +9,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/limetext/backend/log"
+	"github.com/jxo/backend/log"
 )
 
 // KeyPress describes a key press event.

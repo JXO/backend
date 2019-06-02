@@ -7,8 +7,8 @@ package render
 import (
 	"sort"
 
-	"github.com/limetext/text"
-	"github.com/limetext/util"
+	"github.com/jxo/backend/util"
+	"github.com/jxo/text"
 )
 
 type (

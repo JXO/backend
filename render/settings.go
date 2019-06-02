@@ -10,7 +10,7 @@ import (
 	"image/color"
 	"strconv"
 
-	"github.com/limetext/backend/log"
+	"github.com/jxo/backend/log"
 )
 
 // Color scheme global settings

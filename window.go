@@ -11,13 +11,13 @@ import (
 	"runtime/debug"
 	"sync"
 
-	"github.com/limetext/backend/log"
-	"github.com/limetext/text"
+	"github.com/jxo/backend/log"
+	"github.com/jxo/text"
 )
 
 type Window struct {
 	text.HasSettings
-	text.HasId
+	text.HasID
 	views       []*View
 	active_view *View
 	project     *Project
@@ -26,7 +26,7 @@ type Window struct {
 
 // implement the fmt.Stringer interface
 func (w *Window) String() string {
-	return fmt.Sprintf("Window{id:%d}", w.Id())
+	return fmt.Sprintf("Window{id:%d}", w.ID())
 }
 
 func (w *Window) NewFile() *View {

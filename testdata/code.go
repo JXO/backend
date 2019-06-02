@@ -15,14 +15,14 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/limetext/backend/log"
-	"github.com/limetext/backend/packages"
-	"github.com/limetext/backend/parser"
-	"github.com/limetext/backend/render"
-	"github.com/limetext/backend/textmate"
-	"github.com/limetext/rubex"
-	. "github.com/limetext/text"
-	. "github.com/limetext/util"
+	"github.com/jxo/backend/log"
+	"github.com/jxo/backend/packages"
+	"github.com/jxo/backend/parser"
+	"github.com/jxo/backend/render"
+	"github.com/jxo/backend/textmate"
+	"github.com/jxo/backend/rubex"
+	. "github.com/jxo/text"
+	. "github.com/jxo/backend/util"
 )
 
 type (
@@ -806,7 +806,7 @@ func (v *View) Classify(point int) (res int) {
 	if re, err := rubex.Compile(ws); err != nil {
 		log.Error(err)
 	} else {
-		// Why ws != ""? See https://github.com/limetext/rubex/issues/2
+		// Why ws != ""? See https://github.com/jxo/backend/rubex/issues/2
 		if ((re.MatchString(b) && ws != "") || b == "") && !(re.MatchString(a) && ws != "") {
 			res |= CLASS_PUNCTUATION_START
 		}

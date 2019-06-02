@@ -20,9 +20,9 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/limetext/backend/render"
-	"github.com/limetext/text"
-	"github.com/quarnster/parser"
+	"github.com/jxo/backend/render"
+	"github.com/jxo/parser"
+	"github.com/jxo/text"
 )
 
 type (

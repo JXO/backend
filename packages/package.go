@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/limetext/backend/log"
+	"github.com/jxo/backend/log"
 )
 
 type (

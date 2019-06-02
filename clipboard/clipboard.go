@@ -7,7 +7,7 @@ package clipboard
 import (
 	"github.com/atotto/clipboard"
 
-	"github.com/limetext/backend/log"
+	"github.com/jxo/backend/log"
 )
 
 type (

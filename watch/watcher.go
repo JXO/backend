@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/limetext/backend/log"
-	"github.com/limetext/util"
+	"github.com/jxo/backend/log"
+	"github.com/jxo/backend/util"
 	"github.com/rjeczalik/notify"
 )
 

@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/limetext/text"
+	"github.com/jxo/text"
 )
 
 func TestLoadUnLoadJSON(t *testing.T) {

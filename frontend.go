@@ -4,7 +4,7 @@
 
 package backend
 
-import "github.com/limetext/text"
+import "github.com/jxo/text"
 
 // The Frontend interface defines the API
 // for functionality that is frontend specific.

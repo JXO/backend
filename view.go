@@ -15,13 +15,13 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/limetext/backend/log"
-	"github.com/limetext/backend/packages"
-	"github.com/limetext/backend/parser"
-	"github.com/limetext/backend/render"
-	"github.com/limetext/rubex"
-	"github.com/limetext/text"
-	"github.com/limetext/util"
+	"github.com/jxo/backend/log"
+	"github.com/jxo/backend/packages"
+	"github.com/jxo/backend/parser"
+	"github.com/jxo/backend/render"
+	"github.com/jxo/backend/rubex"
+	"github.com/jxo/backend/util"
+	"github.com/jxo/text"
 )
 
 type (
@@ -30,7 +30,7 @@ type (
 	// Multiple Views can share the same underlying data buffer.
 	View struct {
 		text.HasSettings
-		text.HasId
+		text.HasID
 		window           *Window
 		buffer           text.Buffer
 		selection        text.RegionSet
@@ -92,7 +92,7 @@ func newView(w *Window) *View {
 
 // implement the fmt.Stringer interface
 func (v *View) String() string {
-	return fmt.Sprintf("View{id:%d, buffer: %s}", v.Id(), v.buffer)
+	return fmt.Sprintf("View{id:%d, buffer: %s}", v.ID(), v.buffer)
 }
 
 func (v *View) setBuffer(b text.Buffer) error {
@@ -790,7 +790,7 @@ func (v *View) Classify(point int) (res int) {
 	if re, err := rubex.Compile(ws); err != nil {
 		log.Error(err)
 	} else {
-		// Why ws != ""? See https://github.com/limetext/rubex/issues/2
+		// Why ws != ""? See https://github.com/jxo/backend/rubex/issues/2
 		if ((re.MatchString(b) && ws != "") || b == "") && !(re.MatchString(a) && ws != "") {
 			res |= CLASS_PUNCTUATION_START
 		}
@@ -1009,8 +1009,8 @@ func (v *View) FullLineR(r text.Region) text.Region {
 	return v.buffer.FullLineR(r)
 }
 
-func (v *View) BufferId() text.Id {
-	return v.buffer.Id()
+func (v *View) BufferID() text.ID {
+	return v.buffer.ID()
 }
 
 func (v *View) Line(off int) text.Region {

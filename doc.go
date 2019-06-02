@@ -58,7 +58,7 @@
 // which allows the exact same key sequence to have different meaning
 // depending on context.
 //
-// See http://godoc.org/github.com/limetext/backend#QueryContextCallback
+// See http://godoc.org/github.com/jxo/backend#QueryContextCallback
 // for details.
 //
 // Settings

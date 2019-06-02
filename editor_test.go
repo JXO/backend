@@ -8,7 +8,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/limetext/backend/keys"
+	"github.com/jxo/backend/keys"
 )
 
 func TestGetEditor(t *testing.T) {

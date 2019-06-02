@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/limetext/log4go"
+	"github.com/jeanphorn/log4go"
 )
 
 type testlogger func(string)

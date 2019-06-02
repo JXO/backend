@@ -4,7 +4,7 @@
 
 package backend
 
-import "github.com/limetext/backend/render"
+import "github.com/jxo/backend/render"
 
 // Any color scheme view should implement this interface
 // also it should register it self from editor.AddColorSCheme

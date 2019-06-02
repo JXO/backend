@@ -10,7 +10,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/limetext/util"
+	"github.com/jxo/backend/util"
 )
 
 func TestSaveAs(t *testing.T) {
