@@ -2,7 +2,7 @@
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
-package backend
+package lime
 
 import (
 	"fmt"
@@ -15,14 +15,14 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/jxo/backend/log"
-	"github.com/jxo/backend/packages"
-	"github.com/jxo/backend/parser"
-	"github.com/jxo/backend/render"
-	"github.com/jxo/backend/textmate"
-	"github.com/jxo/backend/rubex"
+	"github.com/jxo/lime/log"
+	"github.com/jxo/lime/packages"
+	"github.com/jxo/lime/parser"
+	"github.com/jxo/lime/render"
+	"github.com/jxo/lime/textmate"
+	"github.com/jxo/lime/rubex"
 	. "github.com/jxo/text"
-	. "github.com/jxo/backend/util"
+	. "github.com/jxo/lime/util"
 )
 
 type (
@@ -147,7 +147,7 @@ func (v *View) flush(position, delta int) {
 // parse of the buffer is a monkey-patched version of the old syntax highlighting
 // regions, which in most instances will be accurate.
 //
-// See package lime-backend/lib/parser for more details.
+// See package lime-lime/lib/parser for more details.
 func (v *View) parsethread() {
 	pc := 0
 	lastParse := -1
@@ -281,7 +281,7 @@ func (v *View) loadSettings() {
 }
 
 // Returns the full concatenated nested scope name at point.
-// See package lime-backend/lib/parser for details.
+// See package lime-lime/lib/parser for details.
 func (v *View) ScopeName(point int) string {
 	v.lock.Lock()
 	defer v.lock.Unlock()
@@ -292,7 +292,7 @@ func (v *View) ScopeName(point int) string {
 }
 
 // Returns the Region of the innermost scope that contains "point".
-// See package lime-backend/lib/parser for details.
+// See package lime-lime/lib/parser for details.
 func (v *View) ExtractScope(point int) Region {
 	v.lock.Lock()
 	defer v.lock.Unlock()
@@ -806,7 +806,7 @@ func (v *View) Classify(point int) (res int) {
 	if re, err := rubex.Compile(ws); err != nil {
 		log.Error(err)
 	} else {
-		// Why ws != ""? See https://github.com/jxo/backend/rubex/issues/2
+		// Why ws != ""? See https://github.com/jxo/lime/rubex/issues/2
 		if ((re.MatchString(b) && ws != "") || b == "") && !(re.MatchString(a) && ws != "") {
 			res |= CLASS_PUNCTUATION_START
 		}

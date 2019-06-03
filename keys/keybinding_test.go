@@ -8,8 +8,8 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/jxo/backend/loaders"
-	"github.com/jxo/backend/util"
+	"github.com/jxo/lime/loaders"
+	"github.com/jxo/lime/util"
 )
 
 func TestLoadKeyBindingsFromJSON(t *testing.T) {

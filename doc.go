@@ -2,14 +2,14 @@
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
-// The backend package defines the very soul of Lime.
+// The lime package defines the very soul of Lime.
 //
 // Some highlevel concepts follow.
 //
 // Frontend
 //
 // Lime is designed with the goal of having a clear frontend
-// and backend separation to allow and hopefully simplify
+// and lime separation to allow and hopefully simplify
 // the creation of multiple frontend versions.
 //
 // The two most active frontends are at the time of writing this
@@ -21,7 +21,7 @@
 // Editor
 //
 // The Editor singleton represents the most fundamental interface
-// that frontends use to access the backend. It keeps a list of
+// that frontends use to access the lime. It keeps a list of
 // editor windows, handles input, detects file changes as well
 // as communicate back to the frontend as needed.
 //
@@ -58,7 +58,7 @@
 // which allows the exact same key sequence to have different meaning
 // depending on context.
 //
-// See http://godoc.org/github.com/jxo/backend#QueryContextCallback
+// See http://godoc.org/github.com/jxo/lime#QueryContextCallback
 // for details.
 //
 // Settings
@@ -69,4 +69,4 @@
 // next which in turn will query its parent if its settings object didn't contain the
 // key neither.
 //
-package backend
+package lime

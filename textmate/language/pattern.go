@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/jxo/backend/log"
-	"github.com/jxo/backend/textmate"
+	"github.com/jxo/lime/log"
+	"github.com/jxo/lime/textmate"
 	"github.com/jxo/parser"
 	"github.com/jxo/text"
 )

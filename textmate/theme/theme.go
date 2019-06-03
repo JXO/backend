@@ -11,10 +11,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/jxo/backend/loaders"
-	"github.com/jxo/backend/log"
-	"github.com/jxo/backend/render"
-	"github.com/jxo/backend/util"
+	"github.com/jxo/lime/loaders"
+	"github.com/jxo/lime/log"
+	"github.com/jxo/lime/render"
+	"github.com/jxo/lime/util"
 )
 
 type (

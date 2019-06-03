@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/jxo/backend/loaders/plist"
+	"github.com/jxo/lime/loaders/plist"
 	"github.com/jxo/parser"
 )
 

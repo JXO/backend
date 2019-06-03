@@ -12,7 +12,7 @@ import (
 )
 
 func TestWatchDir(t *testing.T) {
-	// The backend libraries expect absolute paths
+	// The lime libraries expect absolute paths
 	path, err := filepath.Abs("testdata/file")
 	if err != nil {
 		t.Fatalf("Couldn't get absolute path for %s: %s", path, err)

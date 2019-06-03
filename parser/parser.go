@@ -20,7 +20,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/jxo/backend/render"
+	"github.com/jxo/lime/render"
 	"github.com/jxo/parser"
 	"github.com/jxo/text"
 )

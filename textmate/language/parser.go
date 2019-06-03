@@ -7,7 +7,7 @@ package language
 import (
 	"strings"
 
-	"github.com/jxo/backend/log"
+	"github.com/jxo/lime/log"
 	"github.com/jxo/parser"
 	"github.com/jxo/text"
 )

@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/jxo/backend/log"
-	"github.com/jxo/backend/rubex"
+	"github.com/jxo/lime/log"
+	"github.com/jxo/lime/rubex"
 )
 
 type (

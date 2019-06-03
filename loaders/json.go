@@ -11,7 +11,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/jxo/backend/loaders/json"
+	"github.com/jxo/lime/loaders/json"
 	. "github.com/jxo/text"
 )
 

@@ -2,14 +2,14 @@
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
-package backend
+package lime
 
 import (
 	"fmt"
 
-	"github.com/jxo/backend/log"
-	"github.com/jxo/backend/parser"
-	"github.com/jxo/backend/render"
+	"github.com/jxo/lime/log"
+	"github.com/jxo/lime/parser"
+	"github.com/jxo/lime/render"
 	"github.com/jxo/text"
 )
 

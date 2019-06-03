@@ -2,9 +2,9 @@
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
-package backend
+package lime
 
-import "github.com/jxo/backend/render"
+import "github.com/jxo/lime/render"
 
 // Any color scheme view should implement this interface
 // also it should register it self from editor.AddColorSCheme

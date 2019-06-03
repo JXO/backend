@@ -8,7 +8,7 @@ import (
 	"sync"
 
 	"github.com/jeanphorn/log4go"
-	. "github.com/jxo/backend/util"
+	. "github.com/jxo/lime/util"
 )
 
 type LogWriter interface {

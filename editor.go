@@ -2,7 +2,7 @@
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
-package backend
+package lime
 
 import (
 	"fmt"
@@ -12,12 +12,12 @@ import (
 	"runtime/debug"
 	"sync"
 
-	"github.com/jxo/backend/clipboard"
-	"github.com/jxo/backend/keys"
-	"github.com/jxo/backend/log"
-	"github.com/jxo/backend/packages"
-	"github.com/jxo/backend/util"
-	"github.com/jxo/backend/watch"
+	"github.com/jxo/lime/clipboard"
+	"github.com/jxo/lime/keys"
+	"github.com/jxo/lime/log"
+	"github.com/jxo/lime/packages"
+	"github.com/jxo/lime/util"
+	"github.com/jxo/lime/watch"
 	"github.com/jxo/text"
 )
 
@@ -104,7 +104,7 @@ func GetEditor() *Editor {
 		OnDefaultPathAdd.Add(ed.loadDefaultKeyBindings)
 		OnUserPathAdd.Add(ed.loadUserSettings)
 		OnUserPathAdd.Add(ed.loadUserKeyBindings)
-		ed.Settings().AddOnChange("backend.editor.ignored_packages", func(name string) {
+		ed.Settings().AddOnChange("lime.editor.ignored_packages", func(name string) {
 			if name != "ignored_packages" {
 				return
 			}

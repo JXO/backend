@@ -2,13 +2,13 @@
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
-package backend
+package lime
 
 import (
 	"path"
 	"testing"
 
-	"github.com/jxo/backend/keys"
+	"github.com/jxo/lime/keys"
 )
 
 func TestGetEditor(t *testing.T) {

@@ -10,8 +10,8 @@ import (
 	"io/ioutil"
 	"sort"
 
-	"github.com/jxo/backend/loaders"
-	"github.com/jxo/backend/textmate"
+	"github.com/jxo/lime/loaders"
+	"github.com/jxo/lime/textmate"
 )
 
 type (

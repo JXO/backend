@@ -4,19 +4,19 @@
 
 // The packages package handles lime package management.
 //
-// The key idea of lime packages is modularity/optionality. The core backend
+// The key idea of lime packages is modularity/optionality. The core lime
 // shouldn't know about tmbundle nor sublime-package, but rather it should
 // make it possible to use these and other variants. @quarnster
 // Ideally packages implemented in such a way that we can just do:
 // import (
-// _ "github.com/jxo/backend/textmate"
-// _ "github.com/jxo/backend/sublime"
-// _ "github.com/jxo/backend/emacs"
+// _ "github.com/jxo/lime/textmate"
+// _ "github.com/jxo/lime/sublime"
+// _ "github.com/jxo/lime/emacs"
 // )
 //
 // Package type
 //
-// Each plugin or package that wants to communicate with backend should
+// Each plugin or package that wants to communicate with lime should
 // implement this interface.
 //
 // Record type

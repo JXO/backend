@@ -9,12 +9,12 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/jxo/backend/log"
+	"github.com/jxo/lime/log"
 )
 
 type (
 	// Defines the functionality each package needs to implement
-	// so the backend could manage the loading watching and etc
+	// so the lime could manage the loading watching and etc
 	Package interface {
 		Load()
 		UnLoad()

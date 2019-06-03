@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/jxo/backend/util"
+	"github.com/jxo/lime/util"
 )
 
 const gotmLang = "../../testdata/package/Go.tmLanguage"

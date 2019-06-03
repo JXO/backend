@@ -12,7 +12,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/jxo/backend/loaders"
+	"github.com/jxo/lime/loaders"
 )
 
 type (

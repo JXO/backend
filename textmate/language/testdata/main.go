@@ -5,56 +5,56 @@ import (
 	"fmt"
 	"io/ioutil"
 	"lime/3rdparty/libs/termbox-go"
-	"lime/backend"
-	"lime/backend/loaders"
-	"lime/backend/primitives"
-	"lime/backend/sublime"
-	"lime/backend/textmate"
+	"lime/lime"
+	"lime/lime/loaders"
+	"lime/lime/primitives"
+	"lime/lime/sublime"
+	"lime/lime/textmate"
 	"strings"
 	"time"
 )
 
 var (
-	lut = map[termbox.Key]backend.KeyPress{
-		termbox.KeyCtrlA:      backend.KeyPress{Ctrl: true, Key: 'a'},
-		termbox.KeyCtrlB:      backend.KeyPress{Ctrl: true, Key: 'b'},
-		termbox.KeyCtrlC:      backend.KeyPress{Ctrl: true, Key: 'c'},
-		termbox.KeyCtrlD:      backend.KeyPress{Ctrl: true, Key: 'd'},
-		termbox.KeyCtrlE:      backend.KeyPress{Ctrl: true, Key: 'e'},
-		termbox.KeyCtrlF:      backend.KeyPress{Ctrl: true, Key: 'f'},
-		termbox.KeyCtrlG:      backend.KeyPress{Ctrl: true, Key: 'g'},
-		termbox.KeyCtrlH:      backend.KeyPress{Ctrl: true, Key: 'h'},
-		termbox.KeyCtrlJ:      backend.KeyPress{Ctrl: true, Key: 'j'},
-		termbox.KeyCtrlK:      backend.KeyPress{Ctrl: true, Key: 'k'},
-		termbox.KeyCtrlL:      backend.KeyPress{Ctrl: true, Key: 'l'},
-		termbox.KeyCtrlN:      backend.KeyPress{Ctrl: true, Key: 'n'},
-		termbox.KeyCtrlO:      backend.KeyPress{Ctrl: true, Key: 'o'},
-		termbox.KeyCtrlP:      backend.KeyPress{Ctrl: true, Key: 'p'},
-		termbox.KeyCtrlQ:      backend.KeyPress{Ctrl: true, Key: 'q'},
-		termbox.KeyCtrlR:      backend.KeyPress{Ctrl: true, Key: 'r'},
-		termbox.KeyCtrlS:      backend.KeyPress{Ctrl: true, Key: 's'},
-		termbox.KeyCtrlT:      backend.KeyPress{Ctrl: true, Key: 't'},
-		termbox.KeyCtrlU:      backend.KeyPress{Ctrl: true, Key: 'u'},
-		termbox.KeyCtrlV:      backend.KeyPress{Ctrl: true, Key: 'v'},
-		termbox.KeyCtrlW:      backend.KeyPress{Ctrl: true, Key: 'w'},
-		termbox.KeyCtrlX:      backend.KeyPress{Ctrl: true, Key: 'x'},
-		termbox.KeyCtrlY:      backend.KeyPress{Ctrl: true, Key: 'y'},
-		termbox.KeyCtrlZ:      backend.KeyPress{Ctrl: true, Key: 'z'},
-		termbox.KeyCtrl2:      backend.KeyPress{Ctrl: true, Key: '2'},
-		termbox.KeyCtrl4:      backend.KeyPress{Ctrl: true, Key: '4'},
-		termbox.KeyCtrl5:      backend.KeyPress{Ctrl: true, Key: '5'},
-		termbox.KeyCtrl6:      backend.KeyPress{Ctrl: true, Key: '6'},
-		termbox.KeyCtrl7:      backend.KeyPress{Ctrl: true, Key: '7'},
-		termbox.KeyEnter:      backend.KeyPress{Key: backend.Enter},
-		termbox.KeySpace:      backend.KeyPress{Key: ' '},
-		termbox.KeyBackspace2: backend.KeyPress{Key: backend.Backspace},
-		termbox.KeyArrowUp:    backend.KeyPress{Key: backend.Up},
-		termbox.KeyArrowDown:  backend.KeyPress{Key: backend.Down},
-		termbox.KeyArrowLeft:  backend.KeyPress{Key: backend.Left},
-		termbox.KeyArrowRight: backend.KeyPress{Key: backend.Right},
-		termbox.KeyDelete:     backend.KeyPress{Key: backend.Delete},
-		termbox.KeyEsc:        backend.KeyPress{Key: backend.Escape},
-		termbox.KeyTab:        backend.KeyPress{Key: '\t'},
+	lut = map[termbox.Key]lime.KeyPress{
+		termbox.KeyCtrlA:      lime.KeyPress{Ctrl: true, Key: 'a'},
+		termbox.KeyCtrlB:      lime.KeyPress{Ctrl: true, Key: 'b'},
+		termbox.KeyCtrlC:      lime.KeyPress{Ctrl: true, Key: 'c'},
+		termbox.KeyCtrlD:      lime.KeyPress{Ctrl: true, Key: 'd'},
+		termbox.KeyCtrlE:      lime.KeyPress{Ctrl: true, Key: 'e'},
+		termbox.KeyCtrlF:      lime.KeyPress{Ctrl: true, Key: 'f'},
+		termbox.KeyCtrlG:      lime.KeyPress{Ctrl: true, Key: 'g'},
+		termbox.KeyCtrlH:      lime.KeyPress{Ctrl: true, Key: 'h'},
+		termbox.KeyCtrlJ:      lime.KeyPress{Ctrl: true, Key: 'j'},
+		termbox.KeyCtrlK:      lime.KeyPress{Ctrl: true, Key: 'k'},
+		termbox.KeyCtrlL:      lime.KeyPress{Ctrl: true, Key: 'l'},
+		termbox.KeyCtrlN:      lime.KeyPress{Ctrl: true, Key: 'n'},
+		termbox.KeyCtrlO:      lime.KeyPress{Ctrl: true, Key: 'o'},
+		termbox.KeyCtrlP:      lime.KeyPress{Ctrl: true, Key: 'p'},
+		termbox.KeyCtrlQ:      lime.KeyPress{Ctrl: true, Key: 'q'},
+		termbox.KeyCtrlR:      lime.KeyPress{Ctrl: true, Key: 'r'},
+		termbox.KeyCtrlS:      lime.KeyPress{Ctrl: true, Key: 's'},
+		termbox.KeyCtrlT:      lime.KeyPress{Ctrl: true, Key: 't'},
+		termbox.KeyCtrlU:      lime.KeyPress{Ctrl: true, Key: 'u'},
+		termbox.KeyCtrlV:      lime.KeyPress{Ctrl: true, Key: 'v'},
+		termbox.KeyCtrlW:      lime.KeyPress{Ctrl: true, Key: 'w'},
+		termbox.KeyCtrlX:      lime.KeyPress{Ctrl: true, Key: 'x'},
+		termbox.KeyCtrlY:      lime.KeyPress{Ctrl: true, Key: 'y'},
+		termbox.KeyCtrlZ:      lime.KeyPress{Ctrl: true, Key: 'z'},
+		termbox.KeyCtrl2:      lime.KeyPress{Ctrl: true, Key: '2'},
+		termbox.KeyCtrl4:      lime.KeyPress{Ctrl: true, Key: '4'},
+		termbox.KeyCtrl5:      lime.KeyPress{Ctrl: true, Key: '5'},
+		termbox.KeyCtrl6:      lime.KeyPress{Ctrl: true, Key: '6'},
+		termbox.KeyCtrl7:      lime.KeyPress{Ctrl: true, Key: '7'},
+		termbox.KeyEnter:      lime.KeyPress{Key: lime.Enter},
+		termbox.KeySpace:      lime.KeyPress{Key: ' '},
+		termbox.KeyBackspace2: lime.KeyPress{Key: lime.Backspace},
+		termbox.KeyArrowUp:    lime.KeyPress{Key: lime.Up},
+		termbox.KeyArrowDown:  lime.KeyPress{Key: lime.Down},
+		termbox.KeyArrowLeft:  lime.KeyPress{Key: lime.Left},
+		termbox.KeyArrowRight: lime.KeyPress{Key: lime.Right},
+		termbox.KeyDelete:     lime.KeyPress{Key: lime.Delete},
+		termbox.KeyEsc:        lime.KeyPress{Key: lime.Escape},
+		termbox.KeyTab:        lime.KeyPress{Key: '\t'},
 	}
 	schemelut = make(map[string][2]termbox.Attribute)
 	defaultBg = termbox.ColorBlack
@@ -65,16 +65,16 @@ var (
 const console_height = 20
 
 type tbfe struct {
-	visibleregion  map[*backend.View]primitives.Region
+	visibleregion  map[*lime.View]primitives.Region
 	status_message string
-	active_window  *backend.Window
+	active_window  *lime.Window
 }
 
-func (t *tbfe) ActiveWindow() *backend.Window {
+func (t *tbfe) ActiveWindow() *lime.Window {
 	return t.active_window
 }
 
-func (t *tbfe) ActiveView(w *backend.Window) *backend.View {
+func (t *tbfe) ActiveView(w *lime.Window) *lime.View {
 	if w == nil {
 		return nil
 	}
@@ -84,7 +84,7 @@ func (t *tbfe) ActiveView(w *backend.Window) *backend.View {
 	return nil
 }
 
-func (t *tbfe) renderView(sx, sy, w, h int, v *backend.View) {
+func (t *tbfe) renderView(sx, sy, w, h int, v *lime.View) {
 	sel := v.Sel()
 	substr := v.Buffer().Data()
 	vr := t.VisibleRegion(v)
@@ -203,7 +203,7 @@ func (t *tbfe) renderView(sx, sy, w, h int, v *backend.View) {
 	}
 }
 
-func (t *tbfe) clip(v *backend.View, r primitives.Region) primitives.Region {
+func (t *tbfe) clip(v *lime.View, r primitives.Region) primitives.Region {
 	s, _ := v.Buffer().RowCol(r.Begin())
 	e, _ := v.Buffer().RowCol(r.End())
 
@@ -226,11 +226,11 @@ func (t *tbfe) clip(v *backend.View, r primitives.Region) primitives.Region {
 	return r
 }
 
-func (t *tbfe) Show(v *backend.View, r primitives.Region) {
+func (t *tbfe) Show(v *lime.View, r primitives.Region) {
 	t.visibleregion[v] = t.clip(v, primitives.Region{r.Begin(), v.Buffer().Size()})
 }
 
-func (t *tbfe) VisibleRegion(v *backend.View) primitives.Region {
+func (t *tbfe) VisibleRegion(v *lime.View) primitives.Region {
 	if r, ok := t.visibleregion[v]; ok {
 		return r
 	} else {
@@ -258,11 +258,11 @@ func (t *tbfe) OkCancelDialog(msg, ok string) {
 }
 
 func (t *tbfe) scroll(b *primitives.Buffer, pos, delta int) {
-	t.Show(backend.GetEditor().Console(), primitives.Region{b.Size(), b.Size()})
+	t.Show(lime.GetEditor().Console(), primitives.Region{b.Size(), b.Size()})
 }
 
 func (t *tbfe) loop() {
-	ed := backend.GetEditor()
+	ed := lime.GetEditor()
 	ed.SetFrontend(t)
 	//ed.LogInput(true)
 	//ed.LogCommands(true)
@@ -407,10 +407,10 @@ func (t *tbfe) loop() {
 		case ev := <-evchan:
 			switch ev.Type {
 			case termbox.EventKey:
-				var kp backend.KeyPress
+				var kp lime.KeyPress
 
 				if ev.Ch != 0 {
-					kp.Key = backend.Key(ev.Ch)
+					kp.Key = lime.Key(ev.Ch)
 				} else if v2, ok := lut[ev.Key]; ok {
 					kp = v2
 				} else {
@@ -436,6 +436,6 @@ func main() {
 	}
 
 	var t tbfe
-	t.visibleregion = make(map[*backend.View]primitives.Region)
+	t.visibleregion = make(map[*lime.View]primitives.Region)
 	t.loop()
 }

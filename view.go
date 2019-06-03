@@ -2,7 +2,7 @@
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
-package backend
+package lime
 
 import (
 	"fmt"
@@ -15,12 +15,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/jxo/backend/log"
-	"github.com/jxo/backend/packages"
-	"github.com/jxo/backend/parser"
-	"github.com/jxo/backend/render"
-	"github.com/jxo/backend/rubex"
-	"github.com/jxo/backend/util"
+	"github.com/jxo/lime/log"
+	"github.com/jxo/lime/packages"
+	"github.com/jxo/lime/parser"
+	"github.com/jxo/lime/render"
+	"github.com/jxo/lime/rubex"
+	"github.com/jxo/lime/util"
 	"github.com/jxo/text"
 )
 
@@ -71,7 +71,7 @@ func newView(w *Window) *View {
 	v.Settings().SetParent(v.userSettings)
 
 	v.loadSettings()
-	v.Settings().AddOnChange("backend.view.syntax", func(name string) {
+	v.Settings().AddOnChange("lime.view.syntax", func(name string) {
 		if name != "syntax" {
 			return
 		}
@@ -159,7 +159,7 @@ func (v *View) flush(position, delta int) {
 // parse of the buffer is a monkey-patched version of the old syntax highlighting
 // regions, which in most instances will be accurate.
 //
-// See package backend/parser for more details.
+// See package lime/parser for more details.
 func (v *View) parsethread() {
 	pc := 0
 	lastParse := -1
@@ -272,7 +272,7 @@ func (v *View) loadSettings() {
 }
 
 // Returns the full concatenated nested scope name at point.
-// See package backend/parser for details.
+// See package lime/parser for details.
 func (v *View) ScopeName(point int) string {
 	v.lock.Lock()
 	defer v.lock.Unlock()
@@ -283,7 +283,7 @@ func (v *View) ScopeName(point int) string {
 }
 
 // Returns the Region of the innermost scope that contains "point".
-// See package backend/parser for details.
+// See package lime/parser for details.
 func (v *View) ExtractScope(point int) text.Region {
 	v.lock.Lock()
 	defer v.lock.Unlock()
@@ -790,7 +790,7 @@ func (v *View) Classify(point int) (res int) {
 	if re, err := rubex.Compile(ws); err != nil {
 		log.Error(err)
 	} else {
-		// Why ws != ""? See https://github.com/jxo/backend/rubex/issues/2
+		// Why ws != ""? See https://github.com/jxo/lime/rubex/issues/2
 		if ((re.MatchString(b) && ws != "") || b == "") && !(re.MatchString(a) && ws != "") {
 			res |= CLASS_PUNCTUATION_START
 		}

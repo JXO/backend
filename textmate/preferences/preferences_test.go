@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/jxo/backend/util"
+	"github.com/jxo/lime/util"
 )
 
 func TestLoad(t *testing.T) {
