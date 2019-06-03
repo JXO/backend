@@ -1,4 +1,4 @@
-module github.com/jxo/backend
+module github.com/jxo/lime
 
 require (
 	github.com/atotto/clipboard v0.1.2
