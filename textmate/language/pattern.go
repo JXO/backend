@@ -12,7 +12,7 @@ import (
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/textmate"
 	"github.com/jxo/parser"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type (

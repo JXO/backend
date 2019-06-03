@@ -9,7 +9,7 @@ import (
 
 	"github.com/jxo/lime/parser"
 	"github.com/jxo/lime/textmate/language"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type dummySyntax struct {

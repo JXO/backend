@@ -8,7 +8,7 @@ package json
 
 import (
 	. "github.com/jxo/parser"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type JSON struct {

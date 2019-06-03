@@ -21,7 +21,7 @@ import (
 	"github.com/jxo/lime/render"
 	"github.com/jxo/lime/textmate"
 	"github.com/jxo/lime/rubex"
-	. "github.com/jxo/text"
+	. "github.com/jxo/lime/text"
 	. "github.com/jxo/lime/util"
 )
 

@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 func TestViewRegionMapCull(t *testing.T) {

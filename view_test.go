@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/jxo/lime/util"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 var testfile = "testdata/file"

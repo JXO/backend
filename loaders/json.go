@@ -12,7 +12,7 @@ import (
 	"fmt"
 
 	"github.com/jxo/lime/loaders/json"
-	. "github.com/jxo/text"
+	. "github.com/jxo/lime/text"
 )
 
 type regionSetAdjuster struct {

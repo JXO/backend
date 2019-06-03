@@ -7,7 +7,7 @@ package lime
 import (
 	"fmt"
 
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type (

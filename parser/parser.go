@@ -22,7 +22,7 @@ import (
 
 	"github.com/jxo/lime/render"
 	"github.com/jxo/parser"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type (

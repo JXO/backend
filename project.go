@@ -13,7 +13,7 @@ import (
 	"strings"
 
 	"github.com/jxo/lime/log"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type (

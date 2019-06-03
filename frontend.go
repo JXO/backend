@@ -4,7 +4,7 @@
 
 package lime
 
-import "github.com/jxo/text"
+import "github.com/jxo/lime/text"
 
 // The Frontend interface defines the API
 // for functionality that is frontend specific.

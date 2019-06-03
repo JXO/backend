@@ -7,7 +7,7 @@ package lime
 import (
 	"testing"
 
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 func TestUndoStackIndex(t *testing.T) {

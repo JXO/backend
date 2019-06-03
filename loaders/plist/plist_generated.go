@@ -8,7 +8,7 @@ package plist
 
 import (
 	. "github.com/jxo/parser"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type PLIST struct {

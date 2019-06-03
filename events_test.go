@@ -9,7 +9,7 @@ import (
 	"reflect"
 	"testing"
 
-	. "github.com/jxo/text"
+	. "github.com/jxo/lime/text"
 )
 
 func TestOnSelectionModified(t *testing.T) {

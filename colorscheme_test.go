@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/jxo/lime/textmate/theme"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type dummyColorScheme struct {

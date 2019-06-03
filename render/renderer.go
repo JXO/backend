@@ -8,7 +8,7 @@ import (
 	"sort"
 
 	"github.com/jxo/lime/util"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 type (

@@ -10,7 +10,7 @@ import (
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/parser"
 	"github.com/jxo/lime/render"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 // Any syntax definition for view should implement this interface

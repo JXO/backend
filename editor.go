@@ -18,7 +18,7 @@ import (
 	"github.com/jxo/lime/packages"
 	"github.com/jxo/lime/util"
 	"github.com/jxo/lime/watch"
-	"github.com/jxo/text"
+	"github.com/jxo/lime/text"
 )
 
 func init() {
