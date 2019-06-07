@@ -11,7 +11,7 @@ import (
 	"sort"
 
 	"github.com/jxo/lime/loaders"
-	"github.com/jxo/lime/textmate"
+	"github.com/jxo/lime/sublime/textmate"
 )
 
 type (

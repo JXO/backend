@@ -7,7 +7,7 @@ package lime
 import (
 	"testing"
 
-	"github.com/jxo/lime/textmate/theme"
+	"github.com/jxo/lime/sublime/textmate/theme"
 	"github.com/jxo/lime/text"
 )
 

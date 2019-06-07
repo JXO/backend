@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/jxo/lime/parser"
-	"github.com/jxo/lime/textmate/language"
+	"github.com/jxo/lime/sublime/textmate/language"
 	"github.com/jxo/lime/text"
 )
 

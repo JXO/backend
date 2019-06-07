@@ -9,7 +9,7 @@
 // make it possible to use these and other variants. @quarnster
 // Ideally packages implemented in such a way that we can just do:
 // import (
-// _ "github.com/jxo/lime/textmate"
+// _ "github.com/jxo/lime/sublime/textmate"
 // _ "github.com/jxo/lime/sublime"
 // _ "github.com/jxo/lime/emacs"
 // )

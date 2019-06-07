@@ -11,9 +11,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/jxo/lime/loaders"
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/render"
+	"github.com/jxo/lime/loaders"
 	"github.com/jxo/lime/util"
 )
 

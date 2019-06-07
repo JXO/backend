@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/jxo/lime/log"
-	"github.com/jxo/parser"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/parser"
 )
 
 // implements parser.Parser + parser.DataSource
