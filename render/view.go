@@ -37,7 +37,7 @@ type (
 
 	// The ViewRegions object contains information
 	// related to the rendering of a specific RegionSet
-	// and can be set both by a https://godoc.org/github.com/jxo/lime/parser#SyntaxHighlighter
+	// and can be set both by a https://godoc.org/github.com/jxo/lime#SyntaxHighlighter
 	// and from plugins via https://godoc.org/github.com/jxo/lime#View.AddRegions.
 	//
 	// Turning this information into a concrete https://godoc.org/github.com/jxo/lime/render#Flavour

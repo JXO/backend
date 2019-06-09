@@ -37,7 +37,7 @@ func TestNewConsoleLogWriter(t *testing.T) {
 
 func TestNewFileLogWriter(t *testing.T) {
 	file := "testfile"
-	l := NewFileLogWriter(file, true, true)
+	l := NewFileLogWriter(file, true)
 	defer os.Remove(file)
 	if l == nil {
 		t.Error("NewFileLogWriter produced a nil")

@@ -7,24 +7,24 @@
 package plist
 
 import (
-	. "github.com/jxo/parser"
+	"github.com/jxo/lime/parser"
 	"github.com/jxo/lime/text"
 )
 
 type PLIST struct {
-	ParserData  Reader
+	ParserData  parser.Reader
 	IgnoreRange text.Region
-	Root        Node
+	Root        parser.Node
 	LastError   int
 }
 
-func (p *PLIST) RootNode() *Node {
+func (p *PLIST) RootNode() *parser.Node {
 	return &p.Root
 }
 
 func (p *PLIST) SetData(data string) {
-	p.ParserData = NewReader(data)
-	p.Root = Node{Name: "PLIST", P: p}
+	p.ParserData = parser.NewReader(data)
+	p.Root = parser.Node{Name: "PLIST", P: p}
 	p.IgnoreRange = text.Region{}
 	p.LastError = 0
 }
@@ -40,7 +40,7 @@ func (p *PLIST) Data(start, end int) string {
 	return p.ParserData.Substring(start, end)
 }
 
-func (p *PLIST) Error() Error {
+func (p *PLIST) Error() parser.Error {
 	errstr := ""
 	line, column := p.ParserData.LineCol(p.LastError)
 
@@ -54,7 +54,7 @@ func (p *PLIST) Error() Error {
 			errstr = "Unexpected " + string(r)
 		}
 	}
-	return NewError(line, column, errstr)
+	return parser.NewError(line, column, errstr)
 }
 
 func (p *PLIST) realParse() bool {

@@ -21,64 +21,61 @@ import (
 	"sync"
 
 	"github.com/jxo/lime/render"
-	"github.com/jxo/parser"
 	"github.com/jxo/lime/text"
 )
 
-type (
-	// The Parser interface is responsible for creating
-	// a parser.Node structure of a given text data.
-	Parser interface {
-		Parse() (*parser.Node, error)
-	}
+// The Parser interface is responsible for creating
+// a Node structure of a given text data.
+type Parser interface {
+    Parse() (*Node, error)
+}
 
-	// The SyntaxHighlighter interface is responsible for
-	// identifying the extent and name of code scopes given
-	// a position in the code buffer this specific SyntaxHighlighter
-	// is responsible for.
-	//
-	// It's expected that the syntax highlighter monkey patches its existing
-	// scope data rather than performing a full reparse when the underlying
-	// buffer changes.
-	//
-	// This is because a full reparse, for which the Parser interface is responsible,
-	// will be going on in parallel in a separate thread and the "monkey patch"
-	// will allow some accuracy in the meantime until the Parse operation has finished.
-	SyntaxHighlighter interface {
-		// Adjust is called when the underlying text buffer changes at "position"
-		// with a change of "delta" characters either being inserted or removed.
-		//
-		// See note above regarding "monkey patching".
-		Adjust(position, delta int)
+// The SyntaxHighlighter interface is responsible for
+// identifying the extent and name of code scopes given
+// a position in the code buffer this specific SyntaxHighlighter
+// is responsible for.
+//
+// It's expected that the syntax highlighter monkey patches its existing
+// scope data rather than performing a full reparse when the underlying
+// buffer changes.
+//
+// This is because a full reparse, for which the Parser interface is responsible,
+// will be going on in parallel in a separate thread and the "monkey patch"
+// will allow some accuracy in the meantime until the Parse operation has finished.
+type SyntaxHighlighter interface {
+    // Adjust is called when the underlying text buffer changes at "position"
+    // with a change of "delta" characters either being inserted or removed.
+    //
+    // See note above regarding "monkey patching".
+    Adjust(position, delta int)
 
-		// Returns the Region of the inner most Scope extent which contains "point".
-		//
-		// This method can be called a lot by plugins, and should therefore be as
-		// fast as possible.
-		ScopeExtent(point int) text.Region
+    // Returns the Region of the inner most Scope extent which contains "point".
+    //
+    // This method can be called a lot by plugins, and should therefore be as
+    // fast as possible.
+    ScopeExtent(point int) text.Region
 
-		// Returns the full concatenated nested scope name of the scope(s) containing "point".
-		//
-		// This method can be called a lot by plugins, and should therefore be as
-		// fast as possible.
-		ScopeName(point int) string
+    // Returns the full concatenated nested scope name of the scope(s) containing "point".
+    //
+    // This method can be called a lot by plugins, and should therefore be as
+    // fast as possible.
+    ScopeName(point int) string
 
-		// Flatten creates a map where the key is the concatenated nested scope names
-		// and the key is the render.ViewRegions associated with that key.
-		//
-		// This function is only called once by the View, which merges
-		// the regions into its own region map and adjusts them as appropriate.
-		Flatten() render.ViewRegionMap
-	}
+    // Flatten creates a map where the key is the concatenated nested scope names
+    // and the key is the render.ViewRegions associated with that key.
+    //
+    // This function is only called once by the View, which merges
+    // the regions into its own region map and adjusts them as appropriate.
+    Flatten() render.ViewRegionMap
+}
 
-	nodeHighlighter struct {
-		rootNode      *parser.Node
-		lastScopeNode *parser.Node
-		lastScopeBuf  bytes.Buffer
-		lastScopeName string
-		sync.Mutex
-	}
-)
+type nodeHighlighter struct {
+    rootNode      *Node
+    lastScopeNode *Node
+    lastScopeBuf  bytes.Buffer
+    lastScopeName string
+    sync.Mutex
+}
 
 // Creates a new default implementation of SyntaxHighlighter operating
 // on the AST created by  "p"'s Parse().
@@ -92,7 +89,7 @@ func NewSyntaxHighlighter(p Parser) (SyntaxHighlighter, error) {
 
 // Given a text region, returns the innermost node covering that region.
 // Side-effects: Writes to nh.lastScopeBuf...
-func (nh *nodeHighlighter) findScope(search text.Region, node *parser.Node) *parser.Node {
+func (nh *nodeHighlighter) findScope(search text.Region, node *Node) *Node {
 	idx := sort.Search(len(node.Children), func(i int) bool {
 		return node.Children[i].Range.A >= search.A || node.Children[i].Range.Covers(search)
 	})
@@ -159,7 +156,7 @@ func (nh *nodeHighlighter) ScopeName(point int) string {
 	return nh.lastScopeName
 }
 
-func (nh *nodeHighlighter) flatten(vrmap render.ViewRegionMap, scopename string, node *parser.Node) {
+func (nh *nodeHighlighter) flatten(vrmap render.ViewRegionMap, scopename string, node *Node) {
 	scopename += " " + node.Name
 	cur := node.Range
 

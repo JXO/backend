@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"github.com/jxo/lime/loaders/plist"
-	"github.com/jxo/parser"
+	"github.com/jxo/lime/parser"
 )
 
 func plistconv(buf *bytes.Buffer, node *parser.Node) error {

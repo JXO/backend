@@ -9,7 +9,7 @@ import (
 
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/text"
-	"github.com/jxo/parser"
+	"github.com/jxo/lime/parser"
 )
 
 // implements parser.Parser + parser.DataSource

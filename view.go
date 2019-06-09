@@ -17,10 +17,10 @@ import (
 
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/packages"
-	"github.com/jxo/lime/parser"
 	"github.com/jxo/lime/render"
 	"github.com/jxo/lime/rubex"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/parser"
 	"github.com/jxo/lime/util"
 )
 
@@ -158,7 +158,7 @@ func (v *View) flush(position, delta int) {
 // parse of the buffer is a monkey-patched version of the old syntax highlighting
 // regions, which in most instances will be accurate.
 //
-// See package lime/parser for more details.
+// See parser for more details.
 func (v *View) parsethread() {
 	pc := 0
 	lastParse := -1
@@ -271,7 +271,7 @@ func (v *View) loadSettings() {
 }
 
 // Returns the full concatenated nested scope name at point.
-// See package lime/parser for details.
+// See parser for details.
 func (v *View) ScopeName(point int) string {
 	v.lock.Lock()
 	defer v.lock.Unlock()
@@ -282,7 +282,7 @@ func (v *View) ScopeName(point int) string {
 }
 
 // Returns the Region of the innermost scope that contains "point".
-// See package lime/parser for details.
+// See parser for details.
 func (v *View) ExtractScope(point int) text.Region {
 	v.lock.Lock()
 	defer v.lock.Unlock()

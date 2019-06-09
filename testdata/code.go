@@ -17,7 +17,7 @@ import (
 
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/packages"
-	"github.com/jxo/lime/parser"
+	"github.com/jxo/lime"
 	"github.com/jxo/lime/render"
 	"github.com/jxo/lime/sublime/textmate"
 	"github.com/jxo/lime/rubex"
