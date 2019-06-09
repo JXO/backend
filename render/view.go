@@ -5,8 +5,8 @@
 package render
 
 import (
-	"github.com/jxo/lime/util"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 const (

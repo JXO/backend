@@ -1,27 +1,28 @@
 package parser
 
 import (
-    "bytes"
-    "fmt"
+	"bytes"
+	"fmt"
 
 	"github.com/jxo/lime/text"
 )
+
 // Generic DataSource interface
 type DataSource interface {
-    // Returns the data between the start and end indices
-    Data(start, end int) string
+	// Returns the data between the start and end indices
+	Data(start, end int) string
 }
 
 // Node is the base structure used to represent a directed acyclic graph
 type Node struct {
-    // The Range this node occupies, as referenced to the DataSource.
-    Range text.Region
-    // The Name of this node.
-    Name string
-    // The Children of this Node.
-    Children []*Node
-    // The DataSource to query when Node.Data is called.
-    P DataSource
+	// The Range this node occupies, as referenced to the DataSource.
+	Range text.Region
+	// The Name of this node.
+	Name string
+	// The Children of this Node.
+	Children []*Node
+	// The DataSource to query when Node.Data is called.
+	P DataSource
 }
 
 // format is a helper function used by String for recursively
@@ -171,4 +172,3 @@ func (n *Node) Simplify() {
 		*n = *n.Children[0]
 	}
 }
-

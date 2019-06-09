@@ -7,8 +7,8 @@ package log
 import (
 	"sync"
 
-	"github.com/jxo/log4go"
 	. "github.com/jxo/lime/util"
+	"github.com/jxo/log4go"
 )
 
 type LogWriter interface {

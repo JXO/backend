@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/jxo/lime"
-	"github.com/jxo/lime/packages"
 	_ "github.com/jxo/lime/commands"
+	"github.com/jxo/lime/packages"
 	_ "github.com/jxo/lime/sublime/api"
 )
 

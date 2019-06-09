@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/jxo/lime"
-	"github.com/limetext/gopy"
 	_ "github.com/jxo/lime/sublime/api"
+	"github.com/limetext/gopy"
 )
 
 func TestPlugin(t *testing.T) {

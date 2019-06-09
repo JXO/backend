@@ -10,9 +10,9 @@ import (
 	"strings"
 
 	"github.com/jxo/lime/log"
+	"github.com/jxo/lime/parser"
 	"github.com/jxo/lime/sublime/textmate"
 	"github.com/jxo/lime/text"
-	"github.com/jxo/lime/parser"
 )
 
 type (

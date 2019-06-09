@@ -7,8 +7,8 @@ package api
 import (
 	"fmt"
 
-	"github.com/limetext/gopy"
 	"github.com/jxo/lime/text"
+	"github.com/limetext/gopy"
 )
 
 func (o *Region) PyRichCompare(other py.Object, op py.Op) (py.Object, error) {

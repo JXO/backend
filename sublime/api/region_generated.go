@@ -10,8 +10,8 @@ import (
 	"fmt"
 
 	"github.com/jxo/lime"
-	"github.com/limetext/gopy"
 	"github.com/jxo/lime/text"
+	"github.com/limetext/gopy"
 )
 
 var (

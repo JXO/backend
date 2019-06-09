@@ -27,7 +27,7 @@ import (
 // The Parser interface is responsible for creating
 // a Node structure of a given text data.
 type Parser interface {
-    Parse() (*Node, error)
+	Parse() (*Node, error)
 }
 
 // The SyntaxHighlighter interface is responsible for
@@ -43,38 +43,38 @@ type Parser interface {
 // will be going on in parallel in a separate thread and the "monkey patch"
 // will allow some accuracy in the meantime until the Parse operation has finished.
 type SyntaxHighlighter interface {
-    // Adjust is called when the underlying text buffer changes at "position"
-    // with a change of "delta" characters either being inserted or removed.
-    //
-    // See note above regarding "monkey patching".
-    Adjust(position, delta int)
+	// Adjust is called when the underlying text buffer changes at "position"
+	// with a change of "delta" characters either being inserted or removed.
+	//
+	// See note above regarding "monkey patching".
+	Adjust(position, delta int)
 
-    // Returns the Region of the inner most Scope extent which contains "point".
-    //
-    // This method can be called a lot by plugins, and should therefore be as
-    // fast as possible.
-    ScopeExtent(point int) text.Region
+	// Returns the Region of the inner most Scope extent which contains "point".
+	//
+	// This method can be called a lot by plugins, and should therefore be as
+	// fast as possible.
+	ScopeExtent(point int) text.Region
 
-    // Returns the full concatenated nested scope name of the scope(s) containing "point".
-    //
-    // This method can be called a lot by plugins, and should therefore be as
-    // fast as possible.
-    ScopeName(point int) string
+	// Returns the full concatenated nested scope name of the scope(s) containing "point".
+	//
+	// This method can be called a lot by plugins, and should therefore be as
+	// fast as possible.
+	ScopeName(point int) string
 
-    // Flatten creates a map where the key is the concatenated nested scope names
-    // and the key is the render.ViewRegions associated with that key.
-    //
-    // This function is only called once by the View, which merges
-    // the regions into its own region map and adjusts them as appropriate.
-    Flatten() render.ViewRegionMap
+	// Flatten creates a map where the key is the concatenated nested scope names
+	// and the key is the render.ViewRegions associated with that key.
+	//
+	// This function is only called once by the View, which merges
+	// the regions into its own region map and adjusts them as appropriate.
+	Flatten() render.ViewRegionMap
 }
 
 type nodeHighlighter struct {
-    rootNode      *Node
-    lastScopeNode *Node
-    lastScopeBuf  bytes.Buffer
-    lastScopeName string
-    sync.Mutex
+	rootNode      *Node
+	lastScopeNode *Node
+	lastScopeBuf  bytes.Buffer
+	lastScopeName string
+	sync.Mutex
 }
 
 // Creates a new default implementation of SyntaxHighlighter operating

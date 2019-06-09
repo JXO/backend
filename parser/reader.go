@@ -5,13 +5,13 @@ import (
 )
 
 type Reader interface {
-    Len() int
-    Pos() int
-    Read() rune
-    UnRead()
-    LineCol(offset int) (line, col int)
-    Substring(start, end int) string
-    Seek(offset int)
+	Len() int
+	Pos() int
+	Read() rune
+	UnRead()
+	LineCol(offset int) (line, col int)
+	Substring(start, end int) string
+	Seek(offset int)
 }
 
 type BasicReader struct {

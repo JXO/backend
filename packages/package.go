@@ -15,18 +15,18 @@ import (
 // Package defines the functionality each package needs to implement
 // so the lime could manage the loading, watching and etc
 type Package interface {
-    Load()
-    UnLoad()
-    Name() string
-    Path() string
+	Load()
+	UnLoad()
+	Name() string
+	Path() string
 }
 
 // Record is a registration of a package, Check function for
 // checking if the path suits for the registered package an Action
 // function for creating package from the path
 type Record struct {
-    Check  func(string) bool
-    Action func(string) Package
+	Check  func(string) bool
+	Action func(string) Package
 }
 
 var (

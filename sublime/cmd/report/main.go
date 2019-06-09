@@ -9,9 +9,9 @@ import (
 	"log"
 	"sort"
 
-	"github.com/limetext/gopy"
 	_ "github.com/jxo/lime/sublime/api"
 	"github.com/jxo/lime/sublime/internal/util"
+	"github.com/limetext/gopy"
 )
 
 func main() {

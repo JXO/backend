@@ -10,8 +10,8 @@ import (
 	"github.com/jxo/lime"
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/render"
-	"github.com/limetext/gopy"
 	"github.com/jxo/lime/util"
+	"github.com/limetext/gopy"
 )
 
 var classes = []struct {

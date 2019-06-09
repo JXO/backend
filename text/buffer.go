@@ -11,7 +11,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-    "github.com/jxo/lime/util"
+	"github.com/jxo/lime/util"
 )
 
 // The InnerBufferInterface defines a minimal

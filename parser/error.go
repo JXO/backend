@@ -1,20 +1,20 @@
 package parser
 
 import (
-    "fmt"
+	"fmt"
 )
 
 type Error interface {
-    Line() int
-    Column() int
-    Description() string
-    Error() string
+	Line() int
+	Column() int
+	Description() string
+	Error() string
 }
 
 type BasicError struct {
-    line        int
-    column      int
-    description string
+	line        int
+	column      int
+	description string
 }
 
 func NewError(line, column int, description string) Error {

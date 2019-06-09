@@ -9,9 +9,9 @@ import (
 	"reflect"
 
 	"github.com/jxo/lime"
-	"github.com/limetext/gopy"
 	"github.com/jxo/lime/text"
 	"github.com/jxo/lime/util"
+	"github.com/limetext/gopy"
 )
 
 type (

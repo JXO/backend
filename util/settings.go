@@ -47,7 +47,7 @@ func (s *HasSettings) Settings() *Settings {
 // NewSettings create a new Settings
 func NewSettings() Settings {
 	return Settings{onChangeCallbacks: make(map[string]OnChangeCallback),
-    data: make(settingsMap), parent: nil}
+		data: make(settingsMap), parent: nil}
 }
 
 // Parent returns the parent Settings of this Settings object

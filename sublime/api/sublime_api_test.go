@@ -14,9 +14,9 @@ import (
 
 	"github.com/jxo/lime"
 	_ "github.com/jxo/lime/commands"
-	"github.com/limetext/gopy"
 	. "github.com/jxo/lime/sublime/internal/util"
 	"github.com/jxo/lime/util"
+	"github.com/limetext/gopy"
 )
 
 const (
