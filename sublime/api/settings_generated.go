@@ -12,6 +12,7 @@ import (
 	"github.com/jxo/lime"
 	"github.com/limetext/gopy"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 var (
@@ -27,7 +28,7 @@ var _settingsClass = py.Class{
 
 type Settings struct {
 	py.BaseObject
-	data *text.Settings
+	data *util.Settings
 }
 
 func (o *Settings) PyInit(args *py.Tuple, kwds *py.Dict) error {
@@ -36,7 +37,7 @@ func (o *Settings) PyInit(args *py.Tuple, kwds *py.Dict) error {
 func (o *Settings) Py_add_on_change(tu *py.Tuple) (py.Object, error) {
 	var (
 		arg1 string
-		arg2 text.OnChangeCallback
+		arg2 util.OnChangeCallback
 	)
 	if v, err := tu.GetItem(0); err != nil {
 		return nil, err
@@ -45,7 +46,7 @@ func (o *Settings) Py_add_on_change(tu *py.Tuple) (py.Object, error) {
 			return nil, err2
 		} else {
 			if v2, ok := v3.(string); !ok {
-				return nil, fmt.Errorf("Expected type string for text.Settings.AddOnChange() arg1, not %s", v.Type())
+				return nil, fmt.Errorf("Expected type string for util.Settings.AddOnChange() arg1, not %s", v.Type())
 			} else {
 				arg1 = v2
 			}
@@ -57,8 +58,8 @@ func (o *Settings) Py_add_on_change(tu *py.Tuple) (py.Object, error) {
 		if v3, err2 := fromPython(v); err2 != nil {
 			return nil, err2
 		} else {
-			if v2, ok := v3.(text.OnChangeCallback); !ok {
-				return nil, fmt.Errorf("Expected type text.OnChangeCallback for text.Settings.AddOnChange() arg2, not %s", v.Type())
+			if v2, ok := v3.(util.OnChangeCallback); !ok {
+				return nil, fmt.Errorf("Expected type util.OnChangeCallback for util.Settings.AddOnChange() arg2, not %s", v.Type())
 			} else {
 				arg2 = v2
 			}
@@ -79,7 +80,7 @@ func (o *Settings) Py_clear_on_change(tu *py.Tuple) (py.Object, error) {
 			return nil, err2
 		} else {
 			if v2, ok := v3.(string); !ok {
-				return nil, fmt.Errorf("Expected type string for text.Settings.ClearOnChange() arg1, not %s", v.Type())
+				return nil, fmt.Errorf("Expected type string for util.Settings.ClearOnChange() arg1, not %s", v.Type())
 			} else {
 				arg1 = v2
 			}
@@ -100,7 +101,7 @@ func (o *Settings) Py_erase(tu *py.Tuple) (py.Object, error) {
 			return nil, err2
 		} else {
 			if v2, ok := v3.(string); !ok {
-				return nil, fmt.Errorf("Expected type string for text.Settings.Erase() arg1, not %s", v.Type())
+				return nil, fmt.Errorf("Expected type string for util.Settings.Erase() arg1, not %s", v.Type())
 			} else {
 				arg1 = v2
 			}
@@ -121,7 +122,7 @@ func (o *Settings) Py_has(tu *py.Tuple) (py.Object, error) {
 			return nil, err2
 		} else {
 			if v2, ok := v3.(string); !ok {
-				return nil, fmt.Errorf("Expected type string for text.Settings.Has() arg1, not %s", v.Type())
+				return nil, fmt.Errorf("Expected type string for util.Settings.Has() arg1, not %s", v.Type())
 			} else {
 				arg1 = v2
 			}

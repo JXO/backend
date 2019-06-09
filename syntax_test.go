@@ -9,7 +9,7 @@ import (
 
 	"github.com/jxo/lime/parser"
 	"github.com/jxo/lime/sublime/textmate/language"
-	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 type dummySyntax struct {
@@ -38,7 +38,7 @@ func (s *dummySyntax) FileTypes() []string {
 	return s.l.FileTypes
 }
 
-func addSetSyntax(tb testing.TB, settings *text.Settings, path string) {
+func addSetSyntax(tb testing.TB, settings *util.Settings, path string) {
 	syn := newDummySytax(tb, path)
 	GetEditor().AddSyntax(path, syn)
 	settings.Set("syntax", path)

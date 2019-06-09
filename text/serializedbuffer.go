@@ -5,7 +5,7 @@
 package text
 
 import (
-	log "github.com/jeanphorn/log4go"
+	log "github.com/jxo/log4go"
 	"runtime/debug"
 )
 

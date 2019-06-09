@@ -14,7 +14,7 @@ import (
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/packages"
 	_ "github.com/jxo/lime/sublime/api"
-	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 // Represents a sublime package
@@ -22,10 +22,10 @@ import (
 type pkg struct {
 	dir  string
 	name string
-	text.HasSettings
+	util.HasSettings
 	keys.HasKeyBindings
-	platformSettings *text.HasSettings
-	defaultSettings  *text.HasSettings
+	platformSettings *util.HasSettings
+	defaultSettings  *util.HasSettings
 	defaultKB        *keys.HasKeyBindings
 	plugins          map[string]*plugin
 	syntaxes         map[string]*syntax
@@ -36,8 +36,8 @@ func newPKG(dir string) packages.Package {
 	p := &pkg{
 		dir:              dir,
 		name:             pkgName(dir),
-		platformSettings: new(text.HasSettings),
-		defaultSettings:  new(text.HasSettings),
+		platformSettings: new(util.HasSettings),
+		defaultSettings:  new(util.HasSettings),
 		defaultKB:        new(keys.HasKeyBindings),
 		plugins:          make(map[string]*plugin),
 		syntaxes:         make(map[string]*syntax),

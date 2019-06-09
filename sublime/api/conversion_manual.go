@@ -11,6 +11,7 @@ import (
 	"github.com/jxo/lime"
 	"github.com/limetext/gopy"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 type (
@@ -42,7 +43,7 @@ func toPython(r interface{}) (py.Object, error) {
 		return py.NewUnicode(t)
 	case float64:
 		return py.NewFloat(t)
-	case *text.Settings:
+	case *util.Settings:
 		pyret0, err := _settingsClass.Alloc(1)
 		if err != nil {
 			return nil, err

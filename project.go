@@ -13,12 +13,12 @@ import (
 	"strings"
 
 	"github.com/jxo/lime/log"
-	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 type (
 	Project struct {
-		text.HasSettings
+		util.HasSettings
 		window   *Window
 		filename string
 		folders  Folders
@@ -117,7 +117,7 @@ func (p *Project) Window() *Window {
 func (p *Project) UnmarshalJSON(data []byte) error {
 	med := struct {
 		Folders  Folders
-		Settings text.Settings
+		Settings util.Settings
 	}{}
 	if err := json.Unmarshal(data, &med); err != nil {
 		return err

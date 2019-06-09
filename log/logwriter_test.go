@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/jeanphorn/log4go"
+	"github.com/jxo/log4go"
 )
 
 func TestNewLogWriter(t *testing.T) {
@@ -37,7 +37,7 @@ func TestNewConsoleLogWriter(t *testing.T) {
 
 func TestNewFileLogWriter(t *testing.T) {
 	file := "testfile"
-	l := NewFileLogWriter(file, true)
+	l := NewFileLogWriter(file, true, true)
 	defer os.Remove(file)
 	if l == nil {
 		t.Error("NewFileLogWriter produced a nil")

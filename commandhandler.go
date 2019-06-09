@@ -25,9 +25,10 @@ type (
 		RunApplicationCommand(string, Args) error
 	}
 
-	appcmd         map[string]Command
-	textcmd        map[string]Command
-	wndcmd         map[string]Command
+	appcmd  map[string]Command
+	textcmd map[string]Command
+	wndcmd  map[string]Command
+
 	commandHandler struct {
 		ApplicationCommands appcmd
 		TextCommands        textcmd
@@ -83,7 +84,8 @@ func (ch *commandHandler) init(cmd interface{}, args Args) error {
 			if rvtype.ConvertibleTo(ftype) {
 				rv = rv.Convert(ftype)
 			} else {
-				return fmt.Errorf("Command %v arg %v of type %v not assignable or convertable to %v of type %v", t, rv, rvtype, ft.Name, ftype)
+				return fmt.Errorf("Command %v arg %v of type %v not assignable or convertable to %v of type %v",
+					t, rv, rvtype, ft.Name, ftype)
 			}
 		}
 		f.Set(rv)
@@ -140,6 +142,7 @@ func (ch *commandHandler) RunTextCommand(view *View, name string, args Args) err
 			return err
 		}
 	} else if w := view.Window(); w != nil {
+		log.Logf(lvl, "Try to run window command: %s %v", name, args)
 		if c, ok := ch.WindowCommands[name].(WindowCommand); c != nil && ok {
 			if err := w.runCommand(c, name); err != nil {
 				log.Logf(lvl, "Command execution failed: %s", err)

@@ -7,7 +7,7 @@ package log
 import (
 	"sync"
 
-	"github.com/jeanphorn/log4go"
+	"github.com/jxo/log4go"
 	. "github.com/jxo/lime/util"
 )
 
@@ -19,8 +19,8 @@ func NewConsoleLogWriter() LogWriter {
 	return log4go.NewConsoleLogWriter()
 }
 
-func NewFileLogWriter(fname string, rotate bool, daily bool) LogWriter {
-	return log4go.NewFileLogWriter(fname, rotate, daily)
+func NewFileLogWriter(fname string, rotate bool) LogWriter {
+	return log4go.NewFileLogWriter(fname, rotate)
 }
 
 // Implementation of a default LogWriter which takes a handler function

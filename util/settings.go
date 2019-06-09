@@ -2,7 +2,7 @@
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
-package text
+package util
 
 import (
 	"encoding/json"
@@ -46,7 +46,8 @@ func (s *HasSettings) Settings() *Settings {
 
 // NewSettings create a new Settings
 func NewSettings() Settings {
-	return Settings{onChangeCallbacks: make(map[string]OnChangeCallback), data: make(settingsMap), parent: nil}
+	return Settings{onChangeCallbacks: make(map[string]OnChangeCallback),
+    data: make(settingsMap), parent: nil}
 }
 
 // Parent returns the parent Settings of this Settings object

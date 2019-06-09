@@ -10,11 +10,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 func TestLoadUnLoadJSON(t *testing.T) {
-	set := text.NewSettings()
+	set := util.NewSettings()
 	j := NewJSON("testdata/Preferences.sublime-settings", &set)
 
 	j.Load()
@@ -38,7 +38,7 @@ func TestWatch(t *testing.T) {
 	file := "testdata/Preferences.sublime-settings"
 	data := []byte(`{"font_face": "test"}`)
 
-	set := text.NewSettings()
+	set := util.NewSettings()
 	if err := LoadJSON(file, &set); err != nil {
 		t.Fatalf("Error LoadJSON: %s", err)
 	}

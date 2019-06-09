@@ -16,9 +16,9 @@ import (
 	"github.com/jxo/lime/keys"
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/packages"
+	"github.com/jxo/lime/text"
 	"github.com/jxo/lime/util"
 	"github.com/jxo/lime/watch"
-	"github.com/jxo/lime/text"
 )
 
 func init() {
@@ -27,7 +27,7 @@ func init() {
 }
 
 type Editor struct {
-	text.HasSettings
+	util.HasSettings
 	keys.HasKeyBindings
 	*watch.Watcher
 	windows          []*Window
@@ -38,8 +38,8 @@ type Editor struct {
 	frontend         Frontend
 	keyInput         chan (keys.KeyPress)
 	clipboard        clipboard.Clipboard
-	defaultSettings  *text.HasSettings
-	platformSettings *text.HasSettings
+	defaultSettings  *util.HasSettings
+	platformSettings *util.HasSettings
 	defaultKB        *keys.HasKeyBindings
 	platformKB       *keys.HasKeyBindings
 	userKB           *keys.HasKeyBindings
@@ -73,8 +73,8 @@ func GetEditor() *Editor {
 			},
 			keyInput:         make(chan keys.KeyPress, 32),
 			clipboard:        clipboard.NewSystemClipboard(),
-			defaultSettings:  new(text.HasSettings),
-			platformSettings: new(text.HasSettings),
+			defaultSettings:  new(util.HasSettings),
+			platformSettings: new(util.HasSettings),
 			defaultKB:        new(keys.HasKeyBindings),
 			platformKB:       new(keys.HasKeyBindings),
 			userKB:           new(keys.HasKeyBindings),
@@ -126,7 +126,7 @@ func GetEditor() *Editor {
 		})
 
 		log.AddFilter("console", log.DEBUG, log.NewLogWriter(ed.handleLog))
-		go ed.inputthread()
+		go ed.inputThread()
 	}
 	return ed
 }
@@ -277,13 +277,13 @@ func (e *Editor) HandleInput(kp keys.KeyPress) {
 	e.keyInput <- kp
 }
 
-func (e *Editor) inputthread() {
+func (e *Editor) inputThread() {
 	pc := 0
 	var lastBindings keys.KeyBindings
 	doinput := func(kp keys.KeyPress) {
 		defer func() {
 			if r := recover(); r != nil {
-				log.Error("Panic in inputthread: %v\n%s", r, string(debug.Stack()))
+				log.Error("Panic in inputThread: %v\n%s", r, string(debug.Stack()))
 				if pc > 0 {
 					panic(r)
 				}
@@ -328,7 +328,7 @@ func (e *Editor) inputthread() {
 			goto try_again
 		} else if kp.IsCharacter() {
 			p2 := util.Prof.Enter("hi.character")
-			log.Finest("[editor.inputthread] kp: |%s|, pos: %v", kp.Text, possible_actions)
+			log.Finest("[editor.inputThread] kp: |%s|, pos: %v", kp.Text, possible_actions)
 			if err := e.CommandHandler().RunTextCommand(v, "insert", Args{"characters": kp.Text}); err != nil {
 				log.Debug("Couldn't run textcommand: %s", err)
 			}

@@ -7,7 +7,7 @@ package lime
 import "github.com/jxo/lime/render"
 
 // Any color scheme view should implement this interface
-// also it should register it self from editor.AddColorSCheme
+// also it should register it self from editor.AddColorScheme
 type ColorScheme interface {
 	render.ColourScheme
 	Name() string

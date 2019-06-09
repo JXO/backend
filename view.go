@@ -20,38 +20,37 @@ import (
 	"github.com/jxo/lime/parser"
 	"github.com/jxo/lime/render"
 	"github.com/jxo/lime/rubex"
-	"github.com/jxo/lime/util"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
-type (
-	// A View provides a view into a specific underlying buffer
-	// with its own set of selections, settings, viewport, etc.
-	// Multiple Views can share the same underlying data buffer.
-	View struct {
-		text.HasSettings
-		text.HasID
-		window           *Window
-		buffer           text.Buffer
-		selection        text.RegionSet
-		undoStack        UndoStack
-		scratch          bool
-		overwrite        bool
-		cursyntax        string
-		syntax           parser.SyntaxHighlighter
-		regions          render.ViewRegionMap
-		editstack        []*Edit
-		lock             sync.Mutex
-		reparseChan      chan parseReq
-		status           map[string]string
-		defaultSettings  *text.HasSettings
-		platformSettings *text.HasSettings
-		userSettings     *text.HasSettings
-	}
-	parseReq struct {
-		forced bool
-	}
-)
+// A View provides a view into a specific underlying buffer
+// with its own set of selections, settings, viewport, etc.
+// Multiple Views can share the same underlying data buffer.
+type View struct {
+	util.HasSettings
+	util.HasID
+	window           *Window
+	buffer           text.Buffer
+	selection        text.RegionSet
+	undoStack        UndoStack
+	scratch          bool
+	overwrite        bool
+	cursyntax        string
+	syntax           parser.SyntaxHighlighter
+	regions          render.ViewRegionMap
+	editstack        []*Edit
+	lock             sync.Mutex
+	reparseChan      chan parseReq
+	status           map[string]string
+	defaultSettings  *util.HasSettings
+	platformSettings *util.HasSettings
+	userSettings     *util.HasSettings
+}
+
+type parseReq struct {
+	forced bool
+}
 
 func newView(w *Window) *View {
 	v := &View{
@@ -59,9 +58,9 @@ func newView(w *Window) *View {
 		regions:          make(render.ViewRegionMap),
 		status:           make(map[string]string),
 		reparseChan:      make(chan parseReq, 32),
-		defaultSettings:  new(text.HasSettings),
-		platformSettings: new(text.HasSettings),
-		userSettings:     new(text.HasSettings),
+		defaultSettings:  new(util.HasSettings),
+		platformSettings: new(util.HasSettings),
+		userSettings:     new(util.HasSettings),
 	}
 	// Initializing keybidings hierarchy
 	// project <- syntax default <- syntax platform <- syntax user <- buffer
@@ -1009,7 +1008,7 @@ func (v *View) FullLineR(r text.Region) text.Region {
 	return v.buffer.FullLineR(r)
 }
 
-func (v *View) BufferID() text.ID {
+func (v *View) BufferID() util.ID {
 	return v.buffer.ID()
 }
 

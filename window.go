@@ -13,11 +13,12 @@ import (
 
 	"github.com/jxo/lime/log"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 type Window struct {
-	text.HasSettings
-	text.HasID
+	util.HasSettings
+	util.HasID
 	views       []*View
 	active_view *View
 	project     *Project

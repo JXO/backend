@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/jxo/lime/sublime/textmate/theme"
-	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 type dummyColorScheme struct {
@@ -28,7 +28,7 @@ func (c *dummyColorScheme) Name() string {
 	return c.Theme.Name
 }
 
-func addSetColorScheme(tb testing.TB, settings *text.Settings, path string) {
+func addSetColorScheme(tb testing.TB, settings *util.Settings, path string) {
 	cs := newDummyColorScheme(tb, path)
 	GetEditor().AddColorScheme(path, cs)
 	settings.Set("colour_scheme", path)

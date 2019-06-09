@@ -10,6 +10,8 @@ import (
 	"strings"
 	"sync"
 	"sync/atomic"
+
+    "github.com/jxo/lime/util"
 )
 
 // The InnerBufferInterface defines a minimal
@@ -73,7 +75,7 @@ type BufferObserver interface {
 type Buffer interface {
 	fmt.Stringer
 	InnerBufferInterface
-	IDInterface
+	util.IDInterface
 
 	// Adds the given observer to this buffer's list of observers
 	AddObserver(BufferObserver) error
@@ -117,7 +119,7 @@ type Buffer interface {
 type BufferChangedCallback func(buf Buffer, position, delta int)
 
 type buffer struct {
-	HasID
+	util.HasID
 	SerializedBuffer
 	changecount int
 	name        string
