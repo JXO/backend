@@ -25,30 +25,33 @@ import (
 
 	"github.com/jxo/lime"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 )
 
 var re = regexp.MustCompile(`\p{Lu}`)
 
-func pyname(in string) string {
-	switch in {
-	case "RowCol":
-		return "_rowcol"
-	case "String":
-		return "Str"
-	case "Len":
-		return "SeqLen"
-	case "Get":
-		return "SeqGet"
-	}
-	return re.ReplaceAllStringFunc(in, func(a string) string { return "_" + strings.ToLower(a) })
+func pyName(in string) string {
+    switch in {
+    case "RowCol":
+        return "_rowcol"
+    case "String":
+        return "Str"
+    case "Len":
+        return "SeqLen"
+    case "Get":
+        return "SeqGet"
+    case "ID":
+        return "_id"
+    }
+    return re.ReplaceAllStringFunc(in, func(a string) string { return "_" + strings.ToLower(a) })
 }
 
-func pyretvar(name string, ot reflect.Type) (string, error) {
+func pyRetVar(name string, ot reflect.Type) (string, error) {
 	return fmt.Sprintf("\npy%s, err = toPython(%s)", name, name), nil
 }
 
-func pyret(ot reflect.Type) (string, error) {
-	v, err := pyretvar("ret", ot)
+func pyRet(ot reflect.Type) (string, error) {
+	v, err := pyRetVar("ret", ot)
 	if err != nil {
 		return "", err
 	}
@@ -60,22 +63,23 @@ func pyret(ot reflect.Type) (string, error) {
 				`, v), nil
 }
 
-func typename(t reflect.Type) string {
+func typeName(t reflect.Type) string {
 	switch t.Kind() {
 	case reflect.Slice:
-		return "[]" + typename(t.Elem())
+		return "[]" + typeName(t.Elem())
 	case reflect.Ptr:
-		return "*" + typename(t.Elem())
+		return "*" + typeName(t.Elem())
 	default:
 		return t.String()
 	}
 }
-func pytogoconv(in, set, name string, returnsValue bool, t reflect.Type) (string, error) {
+
+func pyToGoConv(in, set, name string, returnsValue bool, t reflect.Type) (string, error) {
 	r := ""
 	if returnsValue {
 		r = "nil, "
 	}
-	ty := typename(t)
+	ty := typeName(t)
 	return fmt.Sprintf(`
 		if v3, err2 := fromPython(%s);  err2 != nil {
 			return %serr2
@@ -88,7 +92,7 @@ func pytogoconv(in, set, name string, returnsValue bool, t reflect.Type) (string
 	 	}`, in, r, ty, r, ty, name, in, set), nil
 }
 
-func generatemethod(m reflect.Method, t2 reflect.Type, callobject, name string) (ret string, err error) {
+func generateMethod(m reflect.Method, t2 reflect.Type, callobject, name string) (ret string, err error) {
 	var (
 		args string
 		rv   string
@@ -123,7 +127,7 @@ func generatemethod(m reflect.Method, t2 reflect.Type, callobject, name string) 
 			}
 			`
 		ret += "\nret0 := " + callobject + m.Name + "(int(arg0))"
-		if r, err := pyretvar("ret0", m.Type.Out(0)); err != nil {
+		if r, err := pyRetVar("ret0", m.Type.Out(0)); err != nil {
 			return "", err
 		} else {
 			ret += r
@@ -154,7 +158,7 @@ func generatemethod(m reflect.Method, t2 reflect.Type, callobject, name string) 
 			t := m.Type.In(j)
 			name := fmt.Sprintf("arg%d", j)
 			msg := fmt.Sprintf("%s.%s() %s", t2, m.Name, name)
-			pygo, err := pytogoconv("v", name, msg, m.Name != "String", t)
+			pygo, err := pyToGoConv("v", name, msg, m.Name != "String", t)
 			if err != nil {
 				return "", err
 			}
@@ -204,7 +208,7 @@ func generatemethod(m reflect.Method, t2 reflect.Type, callobject, name string) 
 		ret += "\nvar err error"
 		for j := 0; j < out; j++ {
 			ret += fmt.Sprintf("\nvar pyret%d py.Object\n", j)
-			if r, err := pyretvar(fmt.Sprintf("ret%d", j), m.Type.Out(j)); err != nil {
+			if r, err := pyRetVar(fmt.Sprintf("ret%d", j), m.Type.Out(j)); err != nil {
 				return "", err
 			} else {
 				ret += r
@@ -235,7 +239,8 @@ func generatemethod(m reflect.Method, t2 reflect.Type, callobject, name string) 
 	return
 }
 
-func generatemethodsEx(t reflect.Type, ignorefunc func(name string) bool, callobject string, name func(t reflect.Type, m reflect.Method) string) (methods string) {
+func generateMethodsEx(t reflect.Type, ignorefunc func(name string) bool,
+	callobject string, name func(t reflect.Type, m reflect.Method) string) (methods string) {
 	t2 := t
 	if t.Kind() == reflect.Ptr {
 		t2 = t.Elem()
@@ -256,7 +261,7 @@ func generatemethodsEx(t reflect.Type, ignorefunc func(name string) bool, callob
 			goto skip
 		}
 
-		if m, err := generatemethod(m, t2, callobject, name(t2, m)); err != nil {
+		if m, err := generateMethod(m, t2, callobject, name(t2, m)); err != nil {
 			reason = err.Error()
 			goto skip
 		} else {
@@ -271,9 +276,9 @@ func generatemethodsEx(t reflect.Type, ignorefunc func(name string) bool, callob
 
 }
 
-func generatemethods(t reflect.Type, ignorefunc func(name string) bool) (methods string) {
-	return generatemethodsEx(t, ignorefunc, "o.data.", func(t2 reflect.Type, m reflect.Method) string {
-		return fmt.Sprintf("\n(o *%s) Py%s", t2.Name(), pyname(m.Name))
+func generateMethods(t reflect.Type, ignorefunc func(name string) bool) (methods string) {
+	return generateMethodsEx(t, ignorefunc, "o.data.", func(t2 reflect.Type, m reflect.Method) string {
+		return fmt.Sprintf("\n(o *%s) Py%s", t2.Name(), pyName(m.Name))
 	})
 }
 
@@ -299,7 +304,7 @@ func generateWrapper(ptr reflect.Type, canCreate bool, ignorefunc func(name stri
 			py.BaseObject
 			data %s
 		}
-		`, pyname(t.Name()), t.Name(), t.Name(), t.Name(), it)
+		`, pyName(t.Name()), t.Name(), t.Name(), t.Name(), it)
 
 	cons := ""
 	if canCreate {
@@ -312,7 +317,7 @@ func generateWrapper(ptr reflect.Type, canCreate bool, ignorefunc func(name stri
 		ok := true
 		for i := 0; i < t.NumField(); i++ {
 			f := t.Field(i)
-			pygo, err := pytogoconv("v", "o.data."+f.Name, t.Name()+"."+f.Name, false, f.Type)
+			pygo, err := pyToGoConv("v", "o.data."+f.Name, t.Name()+"."+f.Name, false, f.Type)
 			if err != nil {
 				ok = false
 				break
@@ -339,7 +344,7 @@ func generateWrapper(ptr reflect.Type, canCreate bool, ignorefunc func(name stri
 			}`, t.Name(), t.Name())
 	}
 	ret += cons
-	ret += generatemethods(ptr, ignorefunc)
+	ret += generateMethods(ptr, ignorefunc)
 	for i := 0; i < t.NumField(); i++ {
 		f := t.Field(i)
 		if !f.Anonymous && f.Name[0] == strings.ToUpper(f.Name[:1])[0] {
@@ -347,9 +352,9 @@ func generateWrapper(ptr reflect.Type, canCreate bool, ignorefunc func(name stri
 				goto skip
 			}
 
-			if r, err := pyret(f.Type); err != nil {
+			if r, err := pyRet(f.Type); err != nil {
 				fmt.Printf("Skipping field %s.%s: %s\n", t.Name(), f.Name, err)
-			} else if pygo, err := pytogoconv("v", "o.data."+f.Name, t.Name()+"."+f.Name, false, f.Type); err != nil {
+			} else if pygo, err := pyToGoConv("v", "o.data."+f.Name, t.Name()+"."+f.Name, false, f.Type); err != nil {
 				fmt.Printf("Skipping field %s.%s: %s\n", t.Name(), f.Name, err)
 			} else {
 				ret += fmt.Sprintf(`
@@ -361,8 +366,8 @@ func generateWrapper(ptr reflect.Type, canCreate bool, ignorefunc func(name stri
 						return  nil
 					}
 
-					`, t.Name(), pyname(f.Name), f.Name, r,
-					t.Name(), pyname(f.Name), pygo,
+					`, t.Name(), pyName(f.Name), f.Name, r,
+					t.Name(), pyName(f.Name), pygo,
 				)
 			}
 		skip:
@@ -401,10 +406,10 @@ func main() {
 	sublimepath = path.Dir(filename)
 
 	cleanup()
-	var sublime_methods = ""
+	var sublimeMethods = ""
 	sn := func(t reflect.Type, m reflect.Method) string {
 		sn := "sublime_" + m.Name
-		sublime_methods += fmt.Sprintf("{Name: \"%s\", Func: %s},\n", pyname(m.Name)[1:], sn)
+		sublimeMethods += fmt.Sprintf("{Name: \"%s\", Func: %s},\n", pyName(m.Name)[1:], sn)
 		return sn
 	}
 
@@ -414,8 +419,8 @@ func main() {
 		{path.Join(sublimepath, "edit_generated.go"), generateWrapper(reflect.TypeOf(&lime.Edit{}), false, regexp.MustCompile("Apply|Undo").MatchString)},
 		{path.Join(sublimepath, "view_generated.go"), generateWrapper(reflect.TypeOf(&lime.View{}), false, regexp.MustCompile("Buffer|Syntax|CommandHistory|Show|AddRegions|UndoStack|Transform|Reload|Save|Close|ExpandByClass|Erased|FileChanged|Inserted|Find$|^Status|Word|Line|Substr|FullLine|ChangeCount|FileName|^Name|RowCol|SetName|Size|TextPoint|AddObserver").MatchString)},
 		{path.Join(sublimepath, "window_generated.go"), generateWrapper(reflect.TypeOf(&lime.Window{}), false, regexp.MustCompile("OpenFile|SetActiveView|Close|Project$").MatchString)},
-		{path.Join(sublimepath, "settings_generated.go"), generateWrapper(reflect.TypeOf(&text.Settings{}), false, regexp.MustCompile("Parent|Set|Get|UnmarshalJSON|MarshalJSON|Int|Bool|String|Id").MatchString)},
-		{path.Join(sublimepath, "view_buffer_generated.go"), generatemethodsEx(
+		{path.Join(sublimepath, "settings_generated.go"), generateWrapper(reflect.TypeOf(&util.Settings{}), false, regexp.MustCompile("Parent|Set|Get|UnmarshalJSON|MarshalJSON|Int|Bool|String|ID").MatchString)},
+		{path.Join(sublimepath, "view_buffer_generated.go"), generateMethodsEx(
 			reflect.TypeOf(text.NewBuffer()),
 			regexp.MustCompile("Erase|Insert|Substr|SetFile|AddCallback|AddObserver|RemoveObserver|Data|Runes|Settings|Index|Close|Unlock|Lock|String").MatchString,
 			"o.data.",
@@ -424,19 +429,19 @@ func main() {
 				switch m.Name {
 				case "Line", "LineR", "FullLine", "FullLineR", "WordR", "Word":
 					mn = strings.ToLower(m.Name)
-				case "Id":
+				case "ID":
 					mn = "Py_buffer_id"
 				default:
-					mn = "Py" + pyname(m.Name)
+					mn = "Py" + pyName(m.Name)
 				}
 				return "(o *View) " + mn
 			})},
-		{path.Join(sublimepath, "commands_generated.go"), generatemethodsEx(reflect.TypeOf(lime.GetEditor().CommandHandler()),
+		{path.Join(sublimepath, "commands_generated.go"), generateMethodsEx(reflect.TypeOf(lime.GetEditor().CommandHandler()),
 			regexp.MustCompile("RunWindowCommand|RunTextCommand|RunApplicationCommand|RegisterWithDefault").MatchString,
 			"lime.GetEditor().CommandHandler().",
 			sn),
 		},
-		{path.Join(sublimepath, "sublime_generated.go"), generatemethodsEx(reflect.TypeOf(lime.GetEditor()),
+		{path.Join(sublimepath, "sublime_generated.go"), generateMethodsEx(reflect.TypeOf(lime.GetEditor()),
 			regexp.MustCompile("Info|HandleInput|CommandHandler|Console|Frontend|SetActiveWindow|Init|Watch|Observe|SetClipboardFuncs|DefaultPath|UserPath|AddPackagesPath|RemovePackagesPath|KeyBindings|ColorScheme|Syntax|[lL]ock$|Settings|^Plat$|NewWindow|Close|^Clipboard$|UseClipboard").MatchString,
 			"lime.GetEditor().",
 			sn),
@@ -444,7 +449,7 @@ func main() {
 	}
 	data[len(data)-1][1] += fmt.Sprintf(`var generated_methods = []py.Method{
 		%s
-	}`, sublime_methods)
+	}`, sublimeMethods)
 	var year = strconv.FormatInt(int64(time.Now().Year()), 10)
 
 	for _, gen := range data {
@@ -465,11 +470,13 @@ func main() {
 				"github.com/limetext/gopy"
 				"github.com/jxo/lime"
 				"github.com/jxo/lime/text"
+                "github.com/jxo/lime/util"
 			)
 			var (
 				_ = lime.View{}
 				_ = text.Region{}
 				_ = fmt.Errorf
+                _ = util.Settings{}
 			)
 			` + gen[1]
 		if err := ioutil.WriteFile(gen[0], []byte(wr), 0644); err != nil {

@@ -25,8 +25,6 @@ type strRange []int
 const numMatchStartSize = 4
 const numReadBufferStartSize = 256
 
-var mutex sync.Mutex
-
 type MatchData struct {
 	count   int
 	indexes [][]int32
@@ -35,6 +33,7 @@ type MatchData struct {
 type NamedGroupInfo map[string]int
 
 type Regexp struct {
+	mu             sync.Mutex
 	pattern        string
 	regex          C.OnigRegex
 	region         *C.OnigRegion
@@ -50,9 +49,10 @@ func NewRegexp(pattern string, option int) (re *Regexp, err error) {
 	patternCharPtr := C.CString(pattern)
 	defer C.free(unsafe.Pointer(patternCharPtr))
 
-	mutex.Lock()
-	defer mutex.Unlock()
-	error_code := C.NewOnigRegex(patternCharPtr, C.int(len(pattern)), C.int(option), &re.regex, &re.region, &re.encoding, &re.errorInfo, &re.errorBuf)
+	re.mu.Lock()
+	defer re.mu.Unlock()
+	error_code := C.NewOnigRegex(patternCharPtr, C.int(len(pattern)),
+		C.int(option), &re.regex, &re.region, &re.encoding, &re.errorInfo, &re.errorBuf)
 	if error_code != C.ONIG_NORMAL {
 		err = errors.New(C.GoString(re.errorBuf))
 	} else {
@@ -94,7 +94,8 @@ func MustCompileWithOption(str string, option int) *Regexp {
 }
 
 func (re *Regexp) Free() {
-	mutex.Lock()
+	re.mu.Lock()
+	defer re.mu.Unlock()
 	if re.regex != nil {
 		C.onig_free(re.regex)
 		re.regex = nil
@@ -103,7 +104,7 @@ func (re *Regexp) Free() {
 		C.onig_region_free(re.region, 1)
 		re.region = nil
 	}
-	mutex.Unlock()
+
 	if re.errorInfo != nil {
 		C.free(unsafe.Pointer(re.errorInfo))
 		re.errorInfo = nil
@@ -155,6 +156,7 @@ func (re *Regexp) processMatch(numCaptures int) (match []int32) {
 	if numCaptures <= 0 {
 		panic("cannot have 0 captures when processing a match")
 	}
+
 	matchData := re.matchData
 	return matchData.indexes[matchData.count][:numCaptures*2]
 }

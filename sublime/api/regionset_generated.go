@@ -1,4 +1,4 @@
-// Copyright 2017 The lime Authors.
+// Copyright 2019 The lime Authors.
 // Use of this source code is governed by a 2-clause
 // BSD-style license that can be found in the LICENSE file.
 
@@ -11,6 +11,7 @@ import (
 
 	"github.com/jxo/lime"
 	"github.com/jxo/lime/text"
+	"github.com/jxo/lime/util"
 	"github.com/limetext/gopy"
 )
 
@@ -18,6 +19,7 @@ var (
 	_ = lime.View{}
 	_ = text.Region{}
 	_ = fmt.Errorf
+	_ = util.Settings{}
 )
 
 var _region_setClass = py.Class{
