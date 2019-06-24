@@ -16,28 +16,26 @@ import (
 	"github.com/jxo/lime/util"
 )
 
-type (
-	Project struct {
-		util.HasSettings
-		window   *Window
-		filename string
-		folders  Folders
-		// TODO: build_systems
-	}
+type Project struct {
+	util.HasSettings
+	window   *Window
+	filename string
+	folders  Folders
+	// TODO: build_systems
+}
 
-	// Represents each folder in sublime-project file
-	Folder struct {
-		Path                string   `json:"path"`
-		Name                string   `json:"name"`
-		ExcludePatterns     []string `json:"folder_exclude_patterns"`
-		IncludePatterns     []string `json:"folder_include_patterns"`
-		FileExcludePatterns []string `json:"file_exclude_patterns"`
-		FileIncludePatterns []string `json:"file_include_patterns"`
-		FollowSymlinks      bool     `json:"follow_symlinks"`
-	}
+// Represents each folder in sublime-project file
+type Folder struct {
+	Path                string   `json:"path"`
+	Name                string   `json:"name"`
+	ExcludePatterns     []string `json:"folder_exclude_patterns"`
+	IncludePatterns     []string `json:"folder_include_patterns"`
+	FileExcludePatterns []string `json:"file_exclude_patterns"`
+	FileIncludePatterns []string `json:"file_include_patterns"`
+	FollowSymlinks      bool     `json:"follow_symlinks"`
+}
 
-	Folders []*Folder
-)
+type Folders []*Folder
 
 func newProject(w *Window) *Project {
 	return &Project{window: w, folders: make(Folders, 0)}

@@ -97,15 +97,20 @@ func toPython(r interface{}) (py.Object, error) {
 		if t == nil {
 			panic(t)
 		}
+
 		pyret0, err := _windowClass.Alloc(1)
+		fmt.Println(_windowClass.Type)
 		if err != nil {
 			return nil, err
-		} else if v2, ok := pyret0.(*Window); !ok {
-			return nil, fmt.Errorf("Unable to convert return value to the right type?!: %s", pyret0.Type())
-		} else {
-			v2.data = t
-			return v2, nil
 		}
+
+		v2, ok := pyret0.(*Window)
+		if !ok {
+			return nil, fmt.Errorf("Unable to convert return value to the right type?!: %s", pyret0.Type())
+		}
+		v2.data = t
+		fmt.Println(pyret0)
+		return pyret0, nil
 	case List:
 		ret, err := py.NewList(int64(len(t)))
 		if err != nil {

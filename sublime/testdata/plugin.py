@@ -16,3 +16,4 @@ class TestWindow(sublime_plugin.WindowCommand):
         e = v.begin_edit()
         v.insert(e, 0, "window hello")
         v.end_edit(e)
+

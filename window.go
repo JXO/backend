@@ -17,8 +17,8 @@ import (
 )
 
 type Window struct {
-	util.HasSettings
 	util.HasID
+	util.HasSettings
 	views       []*View
 	active_view *View
 	project     *Project
@@ -34,8 +34,8 @@ func (w *Window) NewFile() *View {
 	w.lock.Lock()
 	defer w.lock.Unlock()
 
-	w.views = append(w.views, newView(w))
-	v := w.views[len(w.views)-1]
+	v := newView(w)
+	w.views = append(w.views, v)
 
 	v.setBuffer(text.NewBuffer())
 	v.selection.Clear()

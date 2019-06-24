@@ -220,6 +220,7 @@ func onInit() {
 	pyAddPath(".")
 	packages.Register(packageRecord)
 	var err error
+	log.Info("Loading sublime_plugin")
 	if module, err = pyImport("sublime_plugin"); err != nil {
 		log.Error("Error importing sublime_plugin: %s", err)
 		return

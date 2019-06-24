@@ -60,6 +60,7 @@ func (o *Window) Py_id() (py.Object, error) {
 }
 
 func (o *Window) Py_new_file() (py.Object, error) {
+	fmt.Printf("new_file, %p %p\n", o, o.data)
 	ret0 := o.data.NewFile()
 	var err error
 	var pyret0 py.Object

@@ -64,7 +64,9 @@ func newView(w *Window) *View {
 	}
 	// Initializing keybidings hierarchy
 	// project <- syntax default <- syntax platform <- syntax user <- buffer
-	v.defaultSettings.Settings().SetParent(v.window.Project())
+	if s := v.window.Project(); s != nil {
+		v.defaultSettings.Settings().SetParent(s)
+	}
 	v.platformSettings.Settings().SetParent(v.defaultSettings)
 	v.userSettings.Settings().SetParent(v.platformSettings)
 	v.Settings().SetParent(v.userSettings)

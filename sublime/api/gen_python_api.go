@@ -31,19 +31,19 @@ import (
 var re = regexp.MustCompile(`\p{Lu}`)
 
 func pyName(in string) string {
-    switch in {
-    case "RowCol":
-        return "_rowcol"
-    case "String":
-        return "Str"
-    case "Len":
-        return "SeqLen"
-    case "Get":
-        return "SeqGet"
-    case "ID":
-        return "_id"
-    }
-    return re.ReplaceAllStringFunc(in, func(a string) string { return "_" + strings.ToLower(a) })
+	switch in {
+	case "RowCol":
+		return "_rowcol"
+	case "String":
+		return "Str"
+	case "Len":
+		return "SeqLen"
+	case "Get":
+		return "SeqGet"
+	case "ID":
+		return "_id"
+	}
+	return re.ReplaceAllStringFunc(in, func(a string) string { return "_" + strings.ToLower(a) })
 }
 
 func pyRetVar(name string, ot reflect.Type) (string, error) {

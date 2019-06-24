@@ -29,8 +29,10 @@ func sublime_ActiveWindow() (py.Object, error) {
 
 	pyret0, err = toPython(ret0)
 	if err != nil {
+		fmt.Println("active window nil")
 		return nil, err
 	}
+	fmt.Printf("%p %p\n", ret0, pyret0)
 	return pyret0, err
 }
 

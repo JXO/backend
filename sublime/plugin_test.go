@@ -9,7 +9,6 @@ import (
 
 	"github.com/jxo/lime"
 	_ "github.com/jxo/lime/sublime/api"
-	"github.com/limetext/gopy"
 )
 
 func TestPlugin(t *testing.T) {
@@ -18,9 +17,7 @@ func TestPlugin(t *testing.T) {
 }
 
 func pyTest(t *testing.T, imp string) {
-	l := py.NewLock()
-	defer l.Unlock()
-	if _, err := py.Import(imp); err != nil {
+	if _, err := pyImport(imp); err != nil {
 		t.Errorf("Error importing %s: %s", imp, err)
 	}
 }

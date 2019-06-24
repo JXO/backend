@@ -18,6 +18,12 @@ type plugin struct {
 	name string
 }
 
+var (
+	pluginRecord = &packages.Record{isPlugin, newPlugin}
+
+	module *py.Module
+)
+
 func newPlugin(fn string) packages.Package {
 	return &plugin{path: fn}
 }
@@ -26,6 +32,7 @@ func newPlugin(fn string) packages.Package {
 func (p *plugin) Load() {
 	dir, file := filepath.Split(p.Path())
 	p.name = file
+	//TODO: 3 for .py
 	name := filepath.Base(dir) + "." + file[:len(file)-3]
 	s, err := py.NewUnicode(name)
 	if err != nil {
@@ -62,12 +69,6 @@ func (p *plugin) FileChanged(name string) {
 func isPlugin(filename string) bool {
 	return filepath.Ext(filename) == ".py"
 }
-
-var (
-	pluginRecord = &packages.Record{isPlugin, newPlugin}
-
-	module *py.Module
-)
 
 func pyAddPath(p string) {
 	l := py.NewLock()
